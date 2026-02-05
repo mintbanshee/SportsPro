@@ -1,5 +1,7 @@
 
-<?php $base_url = '/PHPAssignments/PHPAssignment2/'; ?> <!-- base url placed in header so it becomes global --> 
+
+<!-- base url placed in header so it becomes global --> 
+<?php $base_url = '/PHPAssignments/PHPAssignment2/'; ?> 
 
 <!DOCTYPE html>
 <html lang="en">

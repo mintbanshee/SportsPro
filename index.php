@@ -1,6 +1,6 @@
 
 <?php
-require __DIR__ . '/Views/header.php';
+require __DIR__ . '/views/header.php';
 ?>
 
 <!-- PAGE HEADER -->
@@ -18,19 +18,22 @@ require __DIR__ . '/Views/header.php';
     </div>
     <div class="card-body">
     <div class="list-group list-group-flush">
+        <a href="<?= $base_url ?>/views/admin/manage_products.php" 
+            class="list-group-item list-group-item-action">
+            Manage Products
+        </a>
 
-<a href="<?= $base_url ?>/Views/Admin/project_manager.php" class="list-group-item list-group-item-action">
-    Manage Products
-</a>
-
-
-        <a href="technicians/index.php" class="list-group-item list-group-item-action">
+        <a href="<?= $base_url ?>/views/admin/manage_technicians.php" 
+            class="list-group-item list-group-item-action">
             Manage Technicians
         </a>
 
-        <a href="customers/index.php" class="list-group-item list-group-item-action">
+        <a href="<?= $base_url ?>/views/admin/manage_customers.php" 
+            class="list-group-item list-group-item-action">
             Manage Customers
         </a>
+
+        
 
         <a href="incidents/create_incident.php" class="list-group-item list-group-item-action">
             Create Incident
@@ -79,4 +82,4 @@ require __DIR__ . '/Views/header.php';
     </div>
 </div>
 
-<?php include 'Views/footer.php'; ?>
+<?php include 'views/footer.php'; ?>
