@@ -36,7 +36,8 @@ $lastNameSearch = trim($_GET['lastName'] ?? '');
   </a>
 </p>
 
-<form method="post" action="customer_update.php" class="card p-3 shadow-sm" style="max-width: 800px;">
+<!-- added an onsubmit popup for update successful --> 
+<form method="post" action="customer_update.php" onsubmit="return confirm('Customer information successfully updated.');" class="card p-3 shadow-sm" style="max-width: 800px;">
   <input type="hidden" name="customerID" value="<?= (int)$customer['customerID'] ?>">
   <input type="hidden" name="lastNameSearch" value="<?= htmlspecialchars($lastNameSearch) ?>">
 
@@ -86,7 +87,7 @@ $lastNameSearch = trim($_GET['lastName'] ?? '');
       <select name="countryCode" class="form-select" required>
         <?php
           // Minimum list; US must exist per spec
-          $countries = ['US' => 'United States', 'CA' => 'Canada'];
+          $countries = ['US' => 'United States', 'CA' => 'Canada', 'JP' => 'Japan']; // added Japan 
           foreach ($countries as $code => $label):
             $selected = ($customer['countryCode'] === $code) ? 'selected' : '';
         ?>
@@ -104,8 +105,9 @@ $lastNameSearch = trim($_GET['lastName'] ?? '');
 
     <!-- Back without saving -->
     <a class="btn btn-secondary"
-       href="search_customers.php<?= $lastNameSearch ? '?lastName=' . urlencode($lastNameSearch) : '' ?>">
-      Back
+       href="manage_customers.php<?= $lastNameSearch ? '?lastName=' . urlencode($lastNameSearch) : '' ?>">
+      Back 
+      <!-- I changed this to manage customers since I added search bar to manage customers page --> 
     </a>
   </div>
 </form>

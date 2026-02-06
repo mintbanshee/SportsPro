@@ -26,7 +26,7 @@ $fields = [
 ];
 
 if (!$customerID) {
-  header("Location: search_customers.php");
+  header("Location: /manage_customers.php"); // changed to manage customers 
   exit;
 }
 
@@ -54,8 +54,9 @@ $stmt = $db->prepare("
 
 $stmt->execute($fields + ['id' => $customerID]);
 
-// Return to the search page (nice workflow)
-$redirect = "search_customers.php";
+// changed this to return to manage customers page as i have the search bar on the manage customers page
+// I felt it has a better flow this way 
+$redirect = "manage_customers.php";
 if ($lastNameSearch !== '') {
   $redirect .= "?lastName=" . urlencode($lastNameSearch);
 }

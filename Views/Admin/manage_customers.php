@@ -10,7 +10,7 @@ require __DIR__ . '/../header.php';
 // require __DIR__ . '/../../config/app.php';
 // require __DIR__ . '/../../auth/require_admin.php';
 
-$sql = "SELECT customerID, firstName, lastName, email, city
+$sql = "SELECT customerID, firstName, lastName, email, city, countryCode
         FROM customers
         ORDER BY lastName, firstName";
 $customers = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -35,21 +35,22 @@ $customers = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
       <th>Name</th>
       <th>Email</th>
       <th>City</th>
+      <th>Country</th>
       <th style="width:120px;">Actions</th>
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($customers as $c): ?>
+    <?php foreach ($customers as $c): ?> <!-- changed the t's from technician page to c's for customer --> 
       <tr>
         <td><?= htmlspecialchars($c['firstName'] . ' ' . $c['lastName']) ?></td>
         <td><?= htmlspecialchars($c['email']) ?></td>
         <td><?= htmlspecialchars($c['city']) ?></td>
+        <td><?= htmlspecialchars($c['countryCode']) ?></td> 
         <td>
-          <form method="post" action="customer_update.php"
-                onsubmit="return confirm('View this customer?');">
-            <input type="hidden" name="customerID" value="<?= (int)$c['customerID'] ?>">
-            <button class="btn btn-sm btn-success" type="submit">Select</button>
-          </form>
+          <a class="btn btn-sm btn-secondary"
+            href="customer_edit.php?id=<?= (int)$c['customerID'] ?>">
+            Select
+          </a>
         </td>
       </tr>
     <?php endforeach; ?>

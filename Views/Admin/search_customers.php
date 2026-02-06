@@ -79,5 +79,6 @@ if ($lastName !== '') {
 <?php endif; ?>
 
 <a href="../../index.php" class="btn btn-secondary mt-3">Back to Home</a>
+<a href="manage_customers.php" class="btn btn-primary mt-3">Back</a> <!-- added a back button to manage customers page --> 
 
 <?php require __DIR__ . '/../footer.php'; ?>
