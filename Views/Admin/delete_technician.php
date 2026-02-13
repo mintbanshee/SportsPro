@@ -18,7 +18,7 @@ if (!$techID) {
     exit;
 }
 
-$stmt = $db->prepare("DELETE FROM technicians WHERE techID = :id");
+$stmt = $pdo->prepare("DELETE FROM technicians WHERE techID = :id");
 $stmt->execute(['id' => $techID]);
 
 header("Location: manage_technicians.php");

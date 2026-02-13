@@ -38,7 +38,7 @@ foreach ($fields as $k => $v) {
   }
 }
 
-$stmt = $db->prepare("
+$stmt = $pdo->prepare("
   UPDATE customers
   SET firstName=:firstName,
       lastName=:lastName,

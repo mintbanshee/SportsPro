@@ -6,8 +6,12 @@ error_reporting(E_ALL);
 require __DIR__ . '/../../db/database.php';
 require __DIR__ . '/../header.php'; 
 
+// Optional admin guard:
+// require __DIR__ . '/../../config/app.php';
+// require __DIR__ . '/../../auth/require_admin.php';
+
 $sql = "SELECT productCode, name, version, releaseDate FROM products ORDER BY name";
-$products = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+$products = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 

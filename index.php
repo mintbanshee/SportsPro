@@ -74,9 +74,10 @@ require __DIR__ . '/views/header.php';
     </div>
     <div class="card-body">
         <div class="list-group list-group-flush">
-            <a href="registrations/register_product.php"
-               class="list-group-item list-group-item-action">
-                Register Product
+        <a href="<?= $base_url ?>/views/customers/register_product.php" class="list-group-item list-group-item-action">
+            Register Product
+        </a>        
+        
             </a>
         </div>
     </div>

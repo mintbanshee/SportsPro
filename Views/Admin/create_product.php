@@ -15,7 +15,7 @@ if($productCode === '' || $name === '' || $version === '' || $releaseDate === ""
 }
 
 // Optional: avoid duplicates
-$check = $db->prepare("SELECT productCode FROM products WHERE productCode = :code");
+$check = $pdo->prepare("SELECT productCode FROM products WHERE productCode = :code");
 $check->execute(['code' => $productCode]);
 if ($check->fetch()) {
     // For students: simple redirect back (you can add an error message later)
@@ -23,7 +23,7 @@ if ($check->fetch()) {
     exit;
 }
 
-$stmt = $db->prepare("
+$stmt = $pdo->prepare("
     INSERT INTO products (productCode, name, version, releaseDate)
     VALUES (:code, :name, :version, :date)
 ");

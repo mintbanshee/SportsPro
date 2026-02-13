@@ -15,7 +15,7 @@ if (!$id) {
     exit;
 }
 
-$stmt = $db->prepare("SELECT * FROM customers WHERE customerID = :id");
+$stmt = $pdo->prepare("SELECT * FROM customers WHERE customerID = :id");
 $stmt->execute(['id' => $id]);
 $customer = $stmt->fetch(PDO::FETCH_ASSOC);
 

@@ -18,7 +18,7 @@ if($productCode === ''){
 }
 
 // delete from the products where the productcode = : code 
-$stmt = $db->prepare("DELETE FROM products WHERE productCode = :code");
+$stmt = $pdo->prepare("DELETE FROM products WHERE productCode = :code");
 $stmt->execute(['code' => $productCode]);
 
 header("Location: manage_products.php");

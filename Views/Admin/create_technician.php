@@ -14,7 +14,7 @@ if ($firstName === '' || $lastName === '' || $email === '' || $phone === '') {
     exit;
 }
 
-$stmt = $db->prepare("
+$stmt = $pdo->prepare("
   INSERT INTO technicians (firstName, lastName, email, phone)
   VALUES (:firstName, :lastName, :email, :phone)
 ");

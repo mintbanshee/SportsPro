@@ -13,7 +13,7 @@ require __DIR__ . '/../header.php';
 $sql = "SELECT techID, firstName, lastName, email, phone
         FROM technicians
         ORDER BY lastName, firstName";
-$techs = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+$techs = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <div class="d-flex align-items-center justify-content-between mb-3">
