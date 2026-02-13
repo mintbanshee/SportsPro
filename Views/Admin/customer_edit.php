@@ -101,14 +101,14 @@ $lastNameSearch = trim($_GET['lastName'] ?? '');
   </div>
 
   <div class="d-flex gap-2 mt-3">
-    <button type="submit" class="btn btn-primary">Update Customer</button>
-
-    <!-- Back without saving -->
+<!-- Back without saving -->
     <a class="btn btn-secondary"
        href="manage_customers.php<?= $lastNameSearch ? '?lastName=' . urlencode($lastNameSearch) : '' ?>">
       Back 
       <!-- I changed this to manage customers since I added search bar to manage customers page --> 
     </a>
+    <button type="submit" class="btn btn-primary">Update Customer</button>
+
   </div>
 </form>
 

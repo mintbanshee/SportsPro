@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
 $error = ''; 
 $email = ''; 
-$return_url = $_GET['return'] ?? '';
+$return_url = $_GET['return'] ?? ''; // if coming from register_product page, GET the return URL from the redirect 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {  
   $email = strtolower(trim($_POST['email'] ?? '')); 
@@ -23,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (!$user || !password_verify($password, $user['password_hash'])) { 
     $error = "Invalid email or password."; 
   } else { 
-    // Good login: regenerate session id (prevents fixation) 
     session_regenerate_id(true); 
 
     $_SESSION['user'] = [ 
@@ -33,12 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       'name' => trim(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? '')), 
     ]; 
 
-  // Redirect based on role 
+  // Redirects  
   if ($user['role'] === 'admin') { 
     header('Location: ' . BASE_URL . '/views/admin/dashboard.php'); 
     } elseif  
       (!empty($return_url)) {
-      header('Location: ' . BASE_URL . '/views/customers/' . $return_url);
+      header('Location: ' . BASE_URL . '/views/customers/' . $return_url); // if the return URL exists, return to register_product 
     } else {
     header('Location: ' . BASE_URL . '/views/customers/index.php'); 
   } 
@@ -53,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body> 
 
 <h2 class="mb-3">Login</h2>
-
+<!-- action ensures user returns even if they mistype password and then they get sent again to login page --> 
 <form method="post" action="login.php?return=<?=htmlspecialchars($return_url) ?>"  class="card p-3 shadow-sm" style="max-width: 650px;">
   <div class="mb-3">
     <label class="form-label">Email</label>
