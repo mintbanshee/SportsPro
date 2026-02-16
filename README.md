@@ -20,7 +20,8 @@ This is a PHP/MySQL application for tracking technical support incidents.
 - added back button to the additional search page accessed from the view/update customer page for ease of use
 - manually seeded Japan the database to allow Japan (JP) as a country and added Japan to the dropdown menu
 - added Register Another Product and Cancel button for better user experience
-- added success and error alerts for better user experience including adding a check for if product is already registered 
+- added success and error alerts for better user experience including adding a check for if product is already registered
+- added admin ability to edit user information and role
 
 ### Previous Focus (Assignment 2 & 3)
 - Initialize the tech_support database. 
@@ -64,7 +65,17 @@ Visual evidence of completed work as I progress through the assignment
 
 <img width="1713" height="844" alt="UpdatedCustomer" src="https://github.com/user-attachments/assets/8a281887-007d-4c25-babb-d8de15b315c2" />
 
+<img width="1157" height="1001" alt="SignUp" src="https://github.com/user-attachments/assets/cf26fb67-6c27-4534-8a90-97df5e8854ba" />
+
 <img width="739" height="468" alt="Login" src="https://github.com/user-attachments/assets/3130100d-8330-4c07-88a5-abc7927d336a" />
+
+<img width="1162" height="787" alt="MyAccountPage" src="https://github.com/user-attachments/assets/193cac83-e912-4a97-99b8-01d2c1c7d664" />
+
+<img width="1164" height="811" alt="AdminDashboard" src="https://github.com/user-attachments/assets/58202c36-c32c-4dfd-8680-4a27371d8d60" />
+
+<img width="1160" height="805" alt="UserEditSuccess" src="https://github.com/user-attachments/assets/ff16c6f5-9911-45f3-b7ad-50de9a17874f" />
+
+<img width="1160" height="776" alt="UserEdited" src="https://github.com/user-attachments/assets/d6af79c6-dbf6-445f-8a3b-f29769939f03" />
 
 <img width="1155" height="623" alt="RegisterProduct" src="https://github.com/user-attachments/assets/b777829f-fb92-4292-aded-02bd805457cb" />
 
