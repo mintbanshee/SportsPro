@@ -1,10 +1,8 @@
 <?php
 require __DIR__ . '/../../db/database.php';
 require __DIR__ . '/../header.php';
-
-// OPTIONAL admin guard:
-// require __DIR__ . '/../../config/app.php';
-// require __DIR__ . '/../../auth/require_admin.php';
+require __DIR__ . '/../../config/app.php';
+require __DIR__ . '/../../auth/require_admin.php';
 ?>
 
 <h2 class="mb-3">Add Technician</h2>

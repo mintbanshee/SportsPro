@@ -1,14 +1,9 @@
 <?php
 declare(strict_types=1);
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 require __DIR__ . '/../../db/database.php';
-
-// Optional admin-only guard:
-// require __DIR__ . '/../../config/app.php';
-// require __DIR__ . '/../../auth/require_admin.php';
+require __DIR__ . '/../../config/app.php';
+require __DIR__ . '/../../auth/require_admin.php';
 
 $customerID = filter_input(INPUT_POST, 'customerID', FILTER_VALIDATE_INT);
 $lastNameSearch = trim($_POST['lastNameSearch'] ?? '');

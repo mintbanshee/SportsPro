@@ -33,11 +33,12 @@ require __DIR__ . '/views/header.php';
             Manage Customers
         </a>
 
-        
-
-        <a href="incidents/create_incident.php" class="list-group-item list-group-item-action">
+        <a href="<?= $base_url ?>/views/admin/create_incident.php" 
+            class="list-group-item list-group-item-action">
             Create Incident
         </a>
+
+
 
         <a href="incidents/assign_incident.php" class="list-group-item list-group-item-action">
             Assign Incident

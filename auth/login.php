@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $email = strtolower(trim($_POST['email'] ?? '')); 
   $password = $_POST['password'] ?? ''; 
 
-  // changed $pdo to $db 
   $stmt = $pdo->prepare("SELECT user_id, email, password_hash, role, first_name, last_name FROM users WHERE email = :email"); 
   $stmt->execute(['email' => $email]); 
   $user = $stmt->fetch(PDO::FETCH_ASSOC); 
@@ -71,4 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </form>
 <p>No account? <a href="<?= BASE_URL ?>/auth/signup.php">Sign up</a></p> 
 
-<?php require __DIR__ . '/../footer.php'; ?>
+</body> 
+</html>
+
+<?php require __DIR__ . '/../views/footer.php'; ?>

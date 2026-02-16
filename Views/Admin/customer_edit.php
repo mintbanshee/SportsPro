@@ -1,13 +1,8 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 require __DIR__ . '/../../db/database.php';
 require __DIR__ . '/../header.php';
-
-// Optional admin-only guard:
-// require __DIR__ . '/../../config/app.php';
-// require __DIR__ . '/../../auth/require_admin.php';
+require __DIR__ . '/../../config/app.php';
+require __DIR__ . '/../../auth/require_admin.php';
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$id) {

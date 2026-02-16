@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 06, 2026 at 02:59 AM
+-- Generation Time: Feb 16, 2026 at 04:08 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -134,7 +134,11 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`productCode`, `name`, `version`, `releaseDate`) VALUES
 ('BB10', 'Baseball Pro', '1.0', '2025-09-01'),
-('SC15', 'Soccer Pro', '1.5', '2025-06-15');
+('CT92', 'Curling Team Roster', '3.1', '2026-02-13'),
+('LC23', 'Badminton Racket Rater', '1.2', '2026-02-02'),
+('LM145', 'Volleyball Score Tracker', '1.2', '2026-02-13'),
+('SC15', 'Soccer Pro', '1.5', '2025-06-15'),
+('T43M', 'Tennis Pro 3', '3.6', '2026-02-10');
 
 -- --------------------------------------------------------
 
@@ -155,7 +159,13 @@ CREATE TABLE `registrations` (
 
 INSERT INTO `registrations` (`registrationID`, `customerID`, `productCode`, `registrationDate`) VALUES
 (1, 1, 'BB10', '2026-01-28 20:52:00'),
-(2, 2, 'SC15', '2026-01-28 20:52:00');
+(2, 2, 'SC15', '2026-01-28 20:52:00'),
+(3, 5, 'SC15', '2026-02-13 20:13:55'),
+(4, 5, 'BB10', '2026-02-13 20:16:05'),
+(8, 5, 'LM145', '2026-02-13 20:39:54'),
+(9, 5, 'CT92', '2026-02-13 20:43:30'),
+(10, 5, 'T43M', '2026-02-13 20:44:20'),
+(11, 5, 'LC23', '2026-02-13 21:00:48');
 
 -- --------------------------------------------------------
 
@@ -226,6 +236,7 @@ ALTER TABLE `products`
 ALTER TABLE `registrations`
   ADD PRIMARY KEY (`registrationID`),
   ADD UNIQUE KEY `uq_customer_product` (`customerID`,`productCode`),
+  ADD UNIQUE KEY `uniq_customer_product` (`customerID`,`productCode`),
   ADD KEY `fk_reg_product` (`productCode`);
 
 --
@@ -261,7 +272,7 @@ ALTER TABLE `incidents`
 -- AUTO_INCREMENT for table `registrations`
 --
 ALTER TABLE `registrations`
-  MODIFY `registrationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `registrationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `technicians`

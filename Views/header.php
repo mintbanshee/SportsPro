@@ -1,6 +1,6 @@
 <?php 
 // 1. Pathing Anchor
-require_once __DIR__ . '/../config/app.php'; 
+require __DIR__ . '/../config/app.php'; 
 
 // 2. Session Handshake
 if (session_status() === PHP_SESSION_NONE) session_start(); 

@@ -104,3 +104,5 @@ $products = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
 </body>
 </html>
+
+<?php require __DIR__ . '/../footer.php'; ?>
