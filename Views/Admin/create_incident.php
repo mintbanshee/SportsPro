@@ -56,6 +56,7 @@ $products = $pdo->query($sqlProducts)->fetchAll(PDO::FETCH_ASSOC);
         <?php endforeach; ?>
       </select>
     </div>
+  </div>
         
   <div class="row g-3">
     <div class="col-md-6">
@@ -67,17 +68,13 @@ $products = $pdo->query($sqlProducts)->fetchAll(PDO::FETCH_ASSOC);
       <label class="form-label">Description of Issue:</label>
       <textarea name="description" class="form-control" rows="5"required></textarea>
     </div>
-</div>
-</form>
+  </div>
 
-  <div class="d-flex gap-2">
+  <div class="d-flex gap-2 mt-3">
     <a href="../../index.php" class="btn btn-secondary">Back to Home</a>
     <button type="submit" class="btn btn-primary">Create Incident</button>
 
   </div>
 </form>
-
-
-
 
 <?php require __DIR__ . '/../footer.php'; ?>
