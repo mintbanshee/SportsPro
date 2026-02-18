@@ -1,14 +1,8 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require __DIR__ . '/../../db/database.php';
 require __DIR__ . '/../header.php';
-
-// Optional admin guard:
-// require __DIR__ . '/../../config/app.php';
-// require __DIR__ . '/../../auth/require_admin.php';
+require __DIR__ . '/../../config/app.php';
+require __DIR__ . '/../../auth/require_admin.php';
 
 $sql = "SELECT techID, firstName, lastName, email, phone
         FROM technicians

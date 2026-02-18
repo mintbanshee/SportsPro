@@ -43,7 +43,7 @@ $products = $pdo->query($sqlProducts)->fetchAll(PDO::FETCH_ASSOC);
   <div class="row g-3">
     <div class="col-md-6">
       <label class="form-label">Customer Name:</label>
-      <input name="name" class="form-control" value="<?= htmlspecialchars($customer['first_name'] . ' ' . ['last_name']) ?>">
+      <input name="name" class="form-control" value="<?= htmlspecialchars($customer['firstName'] . ' ' . $customer['lastName']) ?>" readonly>
     </div>
 
     <div class="col-md-4">
@@ -63,16 +63,21 @@ $products = $pdo->query($sqlProducts)->fetchAll(PDO::FETCH_ASSOC);
       <input name="title" input type="text" class="form-control" required>
     </div>
   
-  <div class="row g-3">
     <div class="col-md-6">
       <label class="form-label">Description of Issue:</label>
-      <input name="title" input type="text" class="form-control" required>
+      <textarea name="description" class="form-control" rows="5"required></textarea>
     </div>
+</div>
+</form>
+
+  <div class="d-flex gap-2">
+    <a href="../../index.php" class="btn btn-secondary">Back to Home</a>
+    <button type="submit" class="btn btn-primary">Create Incident</button>
+
+  </div>
+</form>
 
 
 
-
-
-<a href="../../index.php" class="btn btn-secondary">Back to Home</a>
 
 <?php require __DIR__ . '/../footer.php'; ?>

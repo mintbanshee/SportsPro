@@ -29,8 +29,9 @@ require __DIR__ . '/../../auth/require_admin.php';
   </div>
 
   <div class="d-flex gap-2">
-    <button type="submit" class="btn btn-primary">Add Technician</button>
     <a href="manage_technicians.php" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary">Add Technician</button>
+
   </div>
 </form>
 
