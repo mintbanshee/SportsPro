@@ -22,6 +22,7 @@ This is a PHP/MySQL application for tracking technical support incidents.
 - added Register Another Product and Cancel button for better user experience
 - added success and error alerts for better user experience including adding a check for if product is already registered
 - added admin ability to edit user information and role
+- started incident pages
 
 ### Previous Focus (Assignment 2 & 3)
 - Initialize the tech_support database. 
@@ -82,6 +83,8 @@ Visual evidence of completed work as I progress through the assignment
 <img width="1155" height="653" alt="RegisterSuccess" src="https://github.com/user-attachments/assets/ad95388d-a589-4164-a79e-8647e624a5eb" />
 
 <img width="1153" height="645" alt="RegistrationExists" src="https://github.com/user-attachments/assets/9dec2b4f-f74c-4cc9-9e01-cc9a257f11ca" />
+
+<img width="1498" height="961" alt="CreateReport" src="https://github.com/user-attachments/assets/546debdc-82ee-4d59-ad69-ae01e2ad428e" />
 
 
 
