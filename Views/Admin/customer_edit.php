@@ -14,6 +14,11 @@ $stmt = $pdo->prepare("SELECT * FROM customers WHERE customerID = :id");
 $stmt->execute(['id' => $id]);
 $customer = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// Fetch countries for dropdown
+$sqlCountries = "SELECT countryCode, countryName FROM countries ORDER BY countryName";
+$countries = $pdo->query($sqlCountries)->fetchAll(PDO::FETCH_ASSOC);
+
+// if no customer found redirect to search page
 if (!$customer) {
     header("Location: search_customers.php");
     exit;
@@ -80,18 +85,13 @@ $lastNameSearch = trim($_GET['lastName'] ?? '');
     <div class="col-md-4">
       <label class="form-label">Country</label>
       <select name="countryCode" class="form-select" required>
-        <?php
-          // Minimum list; US must exist per spec
-          $countries = ['US' => 'United States', 'CA' => 'Canada', 'JP' => 'Japan']; // added Japan 
-          foreach ($countries as $code => $label):
-            $selected = ($customer['countryCode'] === $code) ? 'selected' : '';
-        ?>
-          <option value="<?= $code ?>" <?= $selected ?>>
-            <?= htmlspecialchars("$code - $label") ?>
-          </option>
+        <?php foreach ($countries as $country): ?>
+          <option value="<?= htmlspecialchars($country['countryCode']) ?>"
+          <?= ($customer['countryCode'] === $country['countryCode']) ? 'selected' : '' ?>>
+          <?= htmlspecialchars($country['countryCode']) . ' - ' . $country['countryName'] ?>
+        </option>
         <?php endforeach; ?>
       </select>
-      <div class="form-text">US is the country code for the United States.</div>
     </div>
   </div>
 
