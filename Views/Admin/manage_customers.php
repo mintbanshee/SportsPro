@@ -1,14 +1,5 @@
 <?php
-
-require __DIR__ . '/../../db/database.php';
 require __DIR__ . '/../header.php';
-require __DIR__ . '/../../config/app.php';
-require __DIR__ . '/../../auth/require_admin.php';
-
-$sql = "SELECT customerID, firstName, lastName, email, city, countryCode
-        FROM customers
-        ORDER BY lastName, firstName";
-$customers = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <div class="d-flex align-items-center justify-content-between mb-3">
@@ -16,9 +7,11 @@ $customers = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 </div>
 
 <div class="d-flex align-items-center justify-content-between mb-3">
-  <form method="get" action="search_customers.php">
+  <form method="get" action="<?= BASE_URL ?>controllers/customer_controller.php">
+    <input type="hidden" name="action" value="manage_customers">
+
     <label class="form-label">Last Name</label>
-    <input type="text" name="lastName">
+    <input type="text" name="lastName" value="<?= htmlspecialchars($lastNameSearch ?? '') ?>">
     <button class="btn btn-sm btn-primary" type="submit">Search</button>
   </form>
 </div>
@@ -42,17 +35,22 @@ $customers = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         <td><?= htmlspecialchars($c['city']) ?></td>
         <td><?= htmlspecialchars($c['countryCode']) ?></td> 
         <td>
-          <a class="btn btn-sm btn-secondary"
-            href="customer_edit.php?id=<?= (int)$c['customerID'] ?>">
-            Select
-          </a>
+        <a class="btn btn-sm btn-secondary"
+          href="<?= BASE_URL ?>controllers/customer_controller.php?action=edit_customer&id=<?= $c['customerID'] ?>&lastName=<?= urlencode($lastName ?? '') ?>">
+          Select
+        </a>
         </td>
       </tr>
     <?php endforeach; ?>
   </tbody>
 </table>
 
-<a href="../../index.php" class="btn btn-secondary">Back to Home</a>
+<a href="<?= BASE_URL ?>index.php" class="btn btn-secondary">Back to Home</a>
+
+<?php if (isset($_SESSION['flash_success'])): ?>
+    <script>alert("<?= $_SESSION['flash_success'] ?>");</script>
+    <?php unset($_SESSION['flash_success']); ?>
+<?php endif; ?>
 
 <?php require __DIR__ . '/../footer.php'; ?>
 

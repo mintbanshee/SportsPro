@@ -1,45 +1,19 @@
 <?php
-require __DIR__ . '/../../db/database.php';
 require __DIR__ . '/../header.php';
-require __DIR__ . '/../../config/app.php';
-require __DIR__ . '/../../auth/require_admin.php';
-
-$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-if (!$id) {
-    header("Location: search_customers.php");
-    exit;
-}
-
-$stmt = $pdo->prepare("SELECT * FROM customers WHERE customerID = :id");
-$stmt->execute(['id' => $id]);
-$customer = $stmt->fetch(PDO::FETCH_ASSOC);
-
-// Fetch countries for dropdown
-$sqlCountries = "SELECT countryCode, countryName FROM countries ORDER BY countryName";
-$countries = $pdo->query($sqlCountries)->fetchAll(PDO::FETCH_ASSOC);
-
-// if no customer found redirect to search page
-if (!$customer) {
-    header("Location: search_customers.php");
-    exit;
-}
-
-// Keep lastName search value so "Back" returns nicely
-$lastNameSearch = trim($_GET['lastName'] ?? '');
 ?>
 
 <h2 class="mb-3">View/Update Customer</h2>
 
 <p>
-  <a href="search_customers.php<?= $lastNameSearch ? '?lastName=' . urlencode($lastNameSearch) : '' ?>">
+  <a href="<?= BASE_URL ?>controllers/customer_controller.php?action=manage_customers&lastName=<?php echo urlencode($lastNameSearch); ?>">
     Search Customers
   </a>
 </p>
 
-<!-- added an onsubmit popup for update successful --> 
-<form method="post" action="customer_update.php" onsubmit="return confirm('Customer information successfully updated.');" class="card p-3 shadow-sm" style="max-width: 800px;">
+<form method="post" action="<?= BASE_URL ?>controllers/customer_controller.php" onsubmit="return confirm('Save changes to customer?');" class="card p-3 shadow-sm" style="max-width: 800px;">
   <input type="hidden" name="customerID" value="<?= (int)$customer['customerID'] ?>">
-  <input type="hidden" name="lastNameSearch" value="<?= htmlspecialchars($lastNameSearch) ?>">
+  <input type="hidden" name="lastNameSearch" value="<?= htmlspecialchars($lastNameSearch ?? '') ?>">
+  <input type="hidden" name="action" value="update_customer">
 
   <div class="row g-3">
     <div class="col-md-6">
@@ -98,7 +72,7 @@ $lastNameSearch = trim($_GET['lastName'] ?? '');
   <div class="d-flex gap-2 mt-3">
 <!-- Back without saving -->
     <a class="btn btn-secondary"
-       href="manage_customers.php<?= $lastNameSearch ? '?lastName=' . urlencode($lastNameSearch) : '' ?>">
+       href="<?= BASE_URL ?>controllers/customer_controller.php?action=manage_customers&lastName=<?php echo urlencode($lastNameSearch); ?>">
       Back 
       <!-- I changed this to manage customers since I added search bar to manage customers page --> 
     </a>
