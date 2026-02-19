@@ -3,7 +3,7 @@
 **Developer:** MintBanshee
 **Course:** PHP and MySQL Development Project 
 **Status:**
-  - **Phase 3:** Assignment 4 (Login and Register Product) 
+  - **Phase 4:** Assignment 5 (Incident Report pages and Final Touches) 
 
 ## ✨ AI Use
 **Documentation:** Co-authored this README with Artemis (Gemini) to organize project goals and instructor notes.
@@ -23,6 +23,7 @@ This is a PHP/MySQL application for tracking technical support incidents.
 - added success and error alerts for better user experience including adding a check for if product is already registered
 - added admin ability to edit user information and role
 - started incident pages
+- updated edit customer country drop-down menu
 
 ### Previous Focus (Assignment 2 & 3)
 - Initialize the tech_support database. 
@@ -33,9 +34,8 @@ This is a PHP/MySQL application for tracking technical support incidents.
 - ensure customers manager is fully functional
 
 ### What is to Come
-As I progress through Assignments I will be adding: 
-- Object-Oriented Programming (OOP) refactoring. 
-- Enhanced data validation and secure HTTPS connections.
+- complete incident report pages
+- and more
 
 ## 📷 Screenshots
 Visual evidence of completed work as I progress through the assignment
@@ -62,6 +62,8 @@ Visual evidence of completed work as I progress through the assignment
 
 <img width="1724" height="913" alt="UpdateCustomer" src="https://github.com/user-attachments/assets/d7ee69d0-e385-46c7-aecc-9a9d6633c405" />
 
+<img width="1367" height="869" alt="EditCustomerCountry" src="https://github.com/user-attachments/assets/600748db-2a84-4a17-bf81-59e8255892eb" />
+
 <img width="1720" height="934" alt="UpdateSuccessful" src="https://github.com/user-attachments/assets/8bb1192a-100e-4d0b-b4bb-2512504a9780" />
 
 <img width="1713" height="844" alt="UpdatedCustomer" src="https://github.com/user-attachments/assets/8a281887-007d-4c25-babb-d8de15b315c2" />
@@ -86,10 +88,15 @@ Visual evidence of completed work as I progress through the assignment
 
 <img width="1498" height="961" alt="CreateReport" src="https://github.com/user-attachments/assets/546debdc-82ee-4d59-ad69-ae01e2ad428e" />
 
+<img width="1625" height="901" alt="NoProductRegistered" src="https://github.com/user-attachments/assets/fd645150-5b08-4489-ad22-ffed9020b850" />
 
+<img width="1629" height="934" alt="OnlyRegisteredProducts" src="https://github.com/user-attachments/assets/5302ae9d-4641-4461-bba1-804150bc8df9" />
 
+<img width="1368" height="912" alt="CreatingReport" src="https://github.com/user-attachments/assets/87a0ae08-0da9-4075-ab03-ffbbee74e264" />
 
+<img width="1368" height="618" alt="IncidentSuccess" src="https://github.com/user-attachments/assets/8677bf99-2a8e-4d1b-ade7-037f7594f9dd" />
 
+<img width="1140" height="374" alt="IncidentInDatabase" src="https://github.com/user-attachments/assets/064a2fd0-a981-4c9c-98f9-e5b5bd9304a6" />
 
 
 
