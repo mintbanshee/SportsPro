@@ -24,6 +24,8 @@ This is a PHP/MySQL application for tracking technical support incidents.
 - added admin ability to edit user information and role
 - started incident pages
 - updated edit customer country drop-down menu
+- moved customer management and technician management in to controller files and cleaned up the admin files
+- added success popup alerts for user clarity
 
 ### Previous Focus (Assignment 2 & 3)
 - Initialize the tech_support database. 
@@ -97,6 +99,35 @@ Visual evidence of completed work as I progress through the assignment
 <img width="1368" height="618" alt="IncidentSuccess" src="https://github.com/user-attachments/assets/8677bf99-2a8e-4d1b-ade7-037f7594f9dd" />
 
 <img width="1140" height="374" alt="IncidentInDatabase" src="https://github.com/user-attachments/assets/064a2fd0-a981-4c9c-98f9-e5b5bd9304a6" />
+
+** Page Updates For Assignment 5 **
+
+Move php logic in to controller files.
+
+<img width="1372" height="634" alt="UpdatedCustomerSearch" src="https://github.com/user-attachments/assets/fdca812c-dc8c-4e19-8df9-1351611f68a9" />
+
+<img width="1366" height="629" alt="UpdatedCustomerSearchResult" src="https://github.com/user-attachments/assets/6f62c479-af41-475d-a1e1-b8de97c2d02d" />
+
+<img width="1365" height="842" alt="UpdatedCountryDropdown" src="https://github.com/user-attachments/assets/fbb7ae91-59af-435e-865c-ba49497e18a5" />
+
+<img width="1364" height="834" alt="UpdatedCustomerPopup" src="https://github.com/user-attachments/assets/d9800077-c67e-446b-a935-271be00dec94" />
+
+<img width="1362" height="1037" alt="CustomerEditSuccess" src="https://github.com/user-attachments/assets/1b69896a-1d67-4f55-a047-3c82b48456dd" />
+
+<img width="1365" height="679" alt="EditedCustomerCountry" src="https://github.com/user-attachments/assets/3693837f-f1d1-47fa-9671-0ae9ec721c1d" />
+
+<img width="1366" height="606" alt="UpdatedManageTech" src="https://github.com/user-attachments/assets/b2cdcdbd-1626-4ff9-aa38-56b73a3327ac" />
+
+<img width="1365" height="810" alt="UpdatedAddTech" src="https://github.com/user-attachments/assets/c54271f9-d478-4c57-9215-227839f1f976" />
+
+<img width="1366" height="961" alt="TechAddSuccess" src="https://github.com/user-attachments/assets/45c21a39-1244-442d-a037-99f0912c8422" />
+
+<img width="1363" height="769" alt="DeleteTechConfirm" src="https://github.com/user-attachments/assets/e700fafe-c8fd-42d5-9450-1ab1605e0de2" />
+
+<img width="1363" height="970" alt="DeletedSuccess" src="https://github.com/user-attachments/assets/b4743f86-c6ba-41f1-90d0-eca2c28c111b" />
+
+<img width="1363" height="657" alt="AfterDelete" src="https://github.com/user-attachments/assets/9940efc6-b14a-4744-8862-89917a62518a" />
+
 
 
 
