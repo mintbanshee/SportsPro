@@ -18,7 +18,7 @@ require __DIR__ . '/views/header.php';
     </div>
     <div class="card-body">
     <div class="list-group list-group-flush">
-        <a href="<?= $base_url ?>/views/admin/manage_products.php" 
+        <a href="<?= $base_url ?>/controllers/product_controller.php?action=manage_products" 
             class="list-group-item list-group-item-action">
             Manage Products
         </a>

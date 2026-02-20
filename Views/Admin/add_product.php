@@ -1,11 +1,11 @@
 <?php
-require __DIR__ . '/../../db/database.php';
 require __DIR__ . '/../header.php';
+require __DIR__ . '/../../config/app.php';
 ?>
 
 <h2 class="mb-3">Add Product</h2>
 
-<form method="post" action="create_product.php" class="card p-3 shadow-sm" style="max-width: 600px;">
+<form method="post" action="<?= BASE_URL ?>controllers/product_controller.php?action=create_product" class="card p-3 shadow-sm" style="max-width: 600px;">
   <div class="mb-3">
     <label class="form-label">Product Code</label>
     <input name="productCode" class="form-control" required maxlength="10">
@@ -28,7 +28,7 @@ require __DIR__ . '/../header.php';
 
   <div class="d-flex gap-2">
     <button type="submit" class="btn btn-primary">Save</button>
-    <a href="manage_products.php" class="btn btn-secondary">Cancel</a>
+    <a href="<?= BASE_URL ?>controllers/product_controller.php?action=manage_products" class="btn btn-secondary">Cancel</a>
   </div>
 </form>
 

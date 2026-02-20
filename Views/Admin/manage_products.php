@@ -1,17 +1,11 @@
 <?php
-require __DIR__ . '/../../db/database.php';
 require __DIR__ . '/../header.php'; 
 require __DIR__ . '/../../config/app.php';
-require __DIR__ . '/../../auth/require_admin.php';
-
-$sql = "SELECT productCode, name, version, releaseDate FROM products ORDER BY name";
-$products = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 
 <div class="d-flex align-items-center justify-content-between mb-3">
   <h2 class="mb-0">Manage Products</h2>
-  <a href="add_product.php" class="btn btn-primary">Add Product</a>
+  <a href="<?= BASE_URL ?>/views/admin/add_product.php" class="btn btn-primary">Add Product</a>
 </div>
 
 <table class="table table-striped table-bordered">
@@ -32,7 +26,7 @@ $products = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         <td><?= htmlspecialchars($product['version']) ?></td>
         <td><?= htmlspecialchars($product['releaseDate']) ?></td>
         <td>
-          <form method="post" action="delete_product.php" onsubmit="return confirm('Delete this product?');">
+          <form method="post" action="<?= BASE_URL ?>/controllers/product_controller.php?action=delete_product" onsubmit="return confirm('Delete this product?');">
             <input type="hidden" name="productCode" value="<?= htmlspecialchars($product['productCode']) ?>">
             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
           </form>
@@ -42,6 +36,11 @@ $products = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
   </tbody>
 </table>
 
-<a href="../../index.php" class="btn btn-secondary">Back to Home</a>
+<a href="<?= BASE_URL ?>index.php" class="btn btn-secondary">Back to Home</a>
+
+<?php if (isset($_SESSION['flash_success'])): ?>
+    <script>alert("<?= $_SESSION['flash_success'] ?>");</script>
+    <?php unset($_SESSION['flash_success']); ?>
+<?php endif; ?>
 
 <?php require __DIR__ . '/../footer.php'; ?>
