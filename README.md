@@ -26,6 +26,7 @@ This is a PHP/MySQL application for tracking technical support incidents.
 - updated edit customer country drop-down menu
 - moved customer management and technician management in to controller files and cleaned up the admin files
 - added success popup alerts for user clarity
+- moved product management in to controller file and cleaned up product admin files
 
 ### Previous Focus (Assignment 2 & 3)
 - Initialize the tech_support database. 
@@ -127,6 +128,22 @@ Move php logic in to controller files.
 <img width="1363" height="970" alt="DeletedSuccess" src="https://github.com/user-attachments/assets/b4743f86-c6ba-41f1-90d0-eca2c28c111b" />
 
 <img width="1363" height="657" alt="AfterDelete" src="https://github.com/user-attachments/assets/9940efc6-b14a-4744-8862-89917a62518a" />
+
+<img width="1363" height="771" alt="UpdatedManageProduct" src="https://github.com/user-attachments/assets/1590d14b-7363-4563-bac3-08a2a3020812" />
+
+<img width="1370" height="864" alt="NewAddProduct" src="https://github.com/user-attachments/assets/66b1cf05-4f50-47ad-b31f-93396eb052fc" />
+
+<img width="1367" height="871" alt="ProductAdded" src="https://github.com/user-attachments/assets/9277966b-c3d7-4df8-8822-a07415840fe6" />
+
+<img width="1367" height="891" alt="DeleteProductConfirm" src="https://github.com/user-attachments/assets/55c2c16f-d37b-4648-91e5-de73434f7f07" />
+
+<img width="1361" height="962" alt="ProductDeleteSuccess" src="https://github.com/user-attachments/assets/fa1df2df-8e2d-43fa-9020-4a13f89e5782" />
+
+<img width="1366" height="825" alt="ProductAfterDelete" src="https://github.com/user-attachments/assets/0e45a932-dba3-4eee-9386-a659be7714be" />
+
+
+
+
 
 
 
