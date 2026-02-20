@@ -23,7 +23,7 @@ require __DIR__ . '/views/header.php';
             Manage Products
         </a>
 
-        <a href="<?= $base_url ?>/views/admin/manage_technicians.php" 
+        <a href="<?= $base_url ?>/controllers/technician_controller.php?action=manage_technicians" 
             class="list-group-item list-group-item-action">
             Manage Technicians
         </a>
