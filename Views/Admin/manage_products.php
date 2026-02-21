@@ -24,7 +24,12 @@ require __DIR__ . '/../../config/app.php';
         <td><?= htmlspecialchars($product['productCode']) ?></td>
         <td><?= htmlspecialchars($product['name']) ?></td>
         <td><?= htmlspecialchars($product['version']) ?></td>
-        <td><?= htmlspecialchars($product['releaseDate']) ?></td>
+        <td>
+            <?php 
+              $date = new DateTime($product['releaseDate']);
+              echo $date->format('n/j/Y'); // the n and the j remove the leading zeros 
+            ?>
+        </td>
         <td>
           <form method="post" action="<?= BASE_URL ?>/controllers/product_controller.php?action=delete_product" onsubmit="return confirm('Delete this product?');">
             <input type="hidden" name="productCode" value="<?= htmlspecialchars($product['productCode']) ?>">

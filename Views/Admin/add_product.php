@@ -27,8 +27,8 @@ require __DIR__ . '/../../config/app.php';
   </div>
 
   <div class="d-flex gap-2">
-    <button type="submit" class="btn btn-primary">Save</button>
     <a href="<?= BASE_URL ?>controllers/product_controller.php?action=manage_products" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary">Save</button>
   </div>
 </form>
 

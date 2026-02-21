@@ -22,7 +22,7 @@ if (!$user_id) { // if the user_id is not valid send back to dashboard
 
 foreach ($fields as $k => $v) { // if admin accidentally removed a field it wont save and will give error message
   if ($v === '') { 
-    header("Location: error.php?msg=required");
+    header("Location: " . BASE_URL . "views/admin/error.php?msg=required");
     exit;
   }
 }

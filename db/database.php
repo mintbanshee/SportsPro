@@ -10,3 +10,10 @@ try {
     echo "Database error: " . $e->getMessage();
     exit;
 }
+
+class Database {
+    public static function getDB() {
+        global $pdo;
+        return $pdo;
+    }
+}
