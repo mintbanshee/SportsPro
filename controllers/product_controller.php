@@ -39,10 +39,10 @@ switch ($action) {
         // pass the products code, name, version and realeasedate 
         $productCode = trim($_POST ['productCode'] ?? ''); 
         $name = trim($_POST ['name'] ?? ''); 
-        $version = trim($_POST ['version'] ?? ''); 
+        $version = (float) ($_POST ['version'] ?? 0); 
         $releaseDate = trim($_POST ['releaseDate'] ?? ''); 
 
-        if($productCode === '' || $name === '' || $version === '' || $releaseDate === ""){
+        if($productCode === '' || $name === '' || $version === 0.0 || $releaseDate === ""){
             header("Location: " . BASE_URL . "views/admin/add_product.php?error=required");
             exit;
         }

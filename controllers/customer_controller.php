@@ -18,6 +18,7 @@ switch ($action) {
         $lastName = trim(filter_input(INPUT_GET, 'lastName') ?? ''); //get the search input
         $lastNameSearch = $lastName;
 
+      try {
         if ($lastName !== '') {
           $stmt = $pdo->prepare("SELECT * FROM customers WHERE lastName LIKE :lastName");
           // used LIKE to be more user friendly
@@ -29,12 +30,18 @@ switch ($action) {
           $stmt->execute();
           $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+      } catch (PDOException $e) { // catch the crash if SQL fails 
+          $error_message = $e->getMessage(); // show error instead of crash 
+          include __DIR__ . '/../views/admin/error.php';
+          exit();
+      } // close catch 
 
         include __DIR__ . '/../views/admin/manage_customers.php';
         break;
 
     case 'edit_customer': // replace the customer_edit php from admin file
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT); // validate the id 
+
         if (!$id) {
             header("Location: .?action=manage_customers"); 
             // redirect to the actions page instead of search page now that we have a manage customers page
@@ -44,13 +51,22 @@ switch ($action) {
         // moved this over to the controller 
         $lastNameSearch = trim($_GET['lastName'] ?? ''); 
 
+      try {
         // the same fetch customer code as before but now in the controller instead of the admin file
         $stmt = $pdo->prepare("SELECT * FROM customers WHERE customerID = :id");
         $stmt->execute(['id' => $id]);
         $customer = $stmt->fetch(PDO::FETCH_ASSOC);
     
         // fetch the countries for the dropdown in the edit form 
-        $countries = $pdo->query("SELECT * FROM countries ORDER BY countryName")->fetchAll(PDO::FETCH_ASSOC);
+        $countriesStmt = $pdo->prepare("SELECT * FROM countries ORDER BY countryName");
+        $countriesStmt->execute();
+        $countries = $countriesStmt->fetchAll(PDO::FETCH_ASSOC);
+
+      } catch (PDOException $e) { // catch the crash if SQL fails 
+          $error_message = $e->getMessage(); // show error instead of crash 
+          include __DIR__ . '/../views/admin/error.php';
+          exit();
+      } // close catch 
 
         include __DIR__ . '/../views/admin/customer_edit.php';
         break;
@@ -90,16 +106,18 @@ switch ($action) {
             $errors[] = "Phone must be in (999) 999-9999 format.";
         }
 
+      try {
         if ($errors) {
             $customer = $fields;       
             $customer['customerID'] = $customerID; 
-            $countries = $pdo->query("SELECT * FROM countries ORDER BY countryName")->fetchAll(PDO::FETCH_ASSOC); 
+            $countriesStmt = $pdo->prepare("SELECT * FROM countries ORDER BY countryName");
+            $countriesStmt->execute();
+            $countries = $countriesStmt->fetchAll(PDO::FETCH_ASSOC); 
             $error = implode("<br>", $errors);
             include __DIR__ . '/../views/admin/customer_edit.php';
             exit;
         }
 
-        try {
           $stmt = $pdo->prepare("
             UPDATE customers
             SET firstName=:firstName,
@@ -114,19 +132,24 @@ switch ($action) {
             WHERE customerID=:id
           ");
 
-        $stmt->execute($fields + ['id' => $customerID]);
+          $stmt->execute($fields + ['id' => $customerID]);
 
-        // redirect with success message and preserve search term if it exists
-        $_SESSION['flash_success'] = "Customer updated successfully!";
-        header("Location: " . BASE_URL . "controllers/customer_controller.php?action=manage_customers&lastName=" . urlencode($lastNameSearch));
-        exit;
-  } catch (PDOException $e) {
-      $customer = $fields;
-      $customer['customerID'] = $customerID;
-      $countries = $pdo->query("SELECT * FROM countries ORDER BY countryName")->fetchAll(PDO::FETCH_ASSOC);
-      $error = "Database error: " . $e->getMessage();
-      include __DIR__ . '/../views/admin/customer_edit.php';
-      exit;
-  }
-  break;
-}
+          // redirect with success message and preserve search term if it exists
+          $_SESSION['flash_success'] = "Customer updated successfully!";
+          header("Location: " . BASE_URL . "controllers/customer_controller.php?action=manage_customers&lastName=" . urlencode($lastNameSearch));
+          exit;
+
+        } catch (PDOException $e) {
+            $customer = $fields;
+            $customer['customerID'] = $customerID;
+            $countriesStmt = $pdo->prepare("SELECT * FROM countries ORDER BY countryName");
+            $countriesStmt->execute();
+            $countries = $countriesStmt->fetchAll(PDO::FETCH_ASSOC);
+            $error = "Database error: " . $e->getMessage();
+            
+            include __DIR__ . '/../views/admin/customer_edit.php';
+            exit; 
+        } // close catch 
+            break;
+
+} // close switch 
