@@ -27,6 +27,19 @@ This is a PHP/MySQL application for tracking technical support incidents.
 - moved customer management and technician management in to controller files and cleaned up the admin files
 - added success popup alerts for user clarity
 - moved product management in to controller file and cleaned up product admin files
+- separated concerns, creating MVC scaffolding
+- created technician_db and class models
+- created product_db model
+- added Database::getDB(); to retrieve pdo database connection 
+- added add customer feature for admin on manage customers page
+- upgraded the edit customer form to double as add customer form depending on which way you enter the page (using the or feature)
+- added try/catch database error handling
+- added TypeError handling
+- started converting SQL queries to prepare statements
+- started to update data access functions to return arrays instead of pdo statement object
+- upgraded input validation
+- added some session handling for success messages
+- 
 
 ### Previous Focus (Assignment 2 & 3)
 - Initialize the tech_support database. 
@@ -141,9 +154,13 @@ Move php logic in to controller files.
 
 <img width="1366" height="825" alt="ProductAfterDelete" src="https://github.com/user-attachments/assets/0e45a932-dba3-4eee-9386-a659be7714be" />
 
+<img width="1400" height="697" alt="NewManageCX" src="https://github.com/user-attachments/assets/66c9b91e-72f2-4729-80e4-1cc2cb01cdf9" />
 
+<img width="1399" height="764" alt="ConfirmAddCustomer" src="https://github.com/user-attachments/assets/06b6d9d0-6140-4a5a-930a-88cd62e7c17c" />
 
+<img width="1395" height="933" alt="CxAddSuccess" src="https://github.com/user-attachments/assets/cd5b2c60-b1ed-454e-9f4a-5f24fbcca299" />
 
+<img width="1399" height="803" alt="UpdatedCxList" src="https://github.com/user-attachments/assets/be137974-131d-470d-bca7-2b05d311bb37" />
 
 
 
