@@ -1,12 +1,13 @@
 <?php 
-
 declare(strict_types=1); 
 
-require __DIR__ . '/../config/app.php';
-require __DIR__ . '/../db/database.php'; 
-require __DIR__ . '/../views/header.php';
+require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . '/../db/database.php'; 
+require_once __DIR__ . '/../views/header.php';
 
 if(session_status() === PHP_SESSION_NONE) session_start();
+
+$pdo = Database::getDB();
 
 $errors = [];
 $email = '';

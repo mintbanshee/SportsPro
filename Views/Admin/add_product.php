@@ -1,11 +1,13 @@
 <?php
-require __DIR__ . '/../header.php';
-require __DIR__ . '/../../config/app.php';
+require_once __DIR__ . '/../../config/app.php';
+require_once __DIR__ . '/../header.php';
+
 ?>
 
 <h2 class="mb-3">Add Product</h2>
 
 <form method="post" action="<?= BASE_URL ?>controllers/product_controller.php?action=create_product" class="card p-3 shadow-sm" style="max-width: 600px;">
+  <input type="hidden" name="action" value="create_product">
   <div class="mb-3">
     <label class="form-label">Product Code</label>
     <input name="productCode" class="form-control" required maxlength="10">

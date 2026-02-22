@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../header.php';
+require_once __DIR__ . '/../header.php';
 ?>
 
 <div class="d-flex align-items-center justify-content-between mb-3">
@@ -11,7 +11,7 @@ require __DIR__ . '/../header.php';
     <input type="hidden" name="action" value="manage_customers">
 
     <label class="form-label">Last Name</label>
-    <input type="text" name="lastName" value="<?= htmlspecialchars($lastNameSearch ?? '') ?>">
+    <input type="text" name="lastName" value="<?= htmlspecialchars($lastName ?? '') ?>">
     <button class="btn btn-sm btn-primary" type="submit">Search</button>
   </form>
 </div>

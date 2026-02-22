@@ -1,6 +1,8 @@
 <?php
-require __DIR__ . '/../../db/database.php';
-require __DIR__ . '/../../auth/require_admin.php';
+require_once __DIR__ . '/../../db/database.php';
+require_once __DIR__ . '/../../auth/require_admin.php';
+
+$pdo = Database::getDB();
 
 // create the incident when the form is submitted, then redirect to success page
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

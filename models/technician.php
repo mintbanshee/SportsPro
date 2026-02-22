@@ -8,7 +8,6 @@ class Technician {
   public $lastName;
   public $email;
   public $phone;
-  public $password;
 
   // created a helper function to return the full name of a technician
   public function getFullName() {

@@ -1,10 +1,13 @@
 <?php
 declare(strict_types=1);
 
-require __DIR__ . '/../../db/database.php';
-require __DIR__ . '/../../config/app.php';
-require __DIR__ . '/../../auth/require_login.php'; 
-require __DIR__ . '/../header.php';
+require_once __DIR__ . '/../../db/database.php';
+require_once __DIR__ . '/../../config/app.php';
+require_once __DIR__ . '/../../auth/require_login.php'; 
+require_once __DIR__ . '/../header.php';
+
+$pdo = Database::getDB();
+
 ?>
 
 <!doctype html> 

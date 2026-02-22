@@ -1,8 +1,10 @@
 <?php
-require __DIR__ . '/../../db/database.php';
-require __DIR__ . '/../header.php';
-require __DIR__ . '/../../config/app.php';
-require __DIR__ . '/../../auth/require_admin.php';
+require_once __DIR__ . '/../../db/database.php';
+require_once __DIR__ . '/../header.php';
+require_once __DIR__ . '/../../config/app.php';
+require_once __DIR__ . '/../../auth/require_admin.php';
+
+$pdo = Database::getDB();
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$id) {

@@ -1,12 +1,7 @@
 <?php 
-// 1. Pathing Anchor
-require __DIR__ . '/../config/app.php'; 
+require_once __DIR__ . '/../config/app.php'; 
 
-// 2. Session Handshake
 if (session_status() === PHP_SESSION_NONE) session_start(); 
-
-// 3. Your existing variable for CSS/Images
-$base_url = '/PHPAssignments/SportsPro'; 
 ?>
 
 <!DOCTYPE html>

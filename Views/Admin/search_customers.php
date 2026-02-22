@@ -1,8 +1,10 @@
 <?php
-require __DIR__ . '/../../db/database.php';
-require __DIR__ . '/../header.php';
-require __DIR__ . '/../../config/app.php';
-require __DIR__ . '/../../auth/require_admin.php';
+require_once __DIR__ . '/../../db/database.php';
+require_once __DIR__ . '/../header.php';
+require_once __DIR__ . '/../../config/app.php';
+require_once __DIR__ . '/../../auth/require_admin.php';
+
+$pdo = Database::getDB();
 
 $lastName = trim($_GET['lastName'] ?? '');
 $customers = [];
@@ -16,6 +18,10 @@ if ($lastName !== '') {
     ");
     $stmt->execute(['ln' => $lastName . '%']);
     $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+  $stmt = $pdo->prepare("SELECT * FROM customers ORDER BY lastName, firstName");
+  $stmt->execute();
+  $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 
@@ -31,14 +37,9 @@ if ($lastName !== '') {
   </div>
 </form>
 
-<?php if ($lastName !== ''): ?>
+<?php if ($customers): ?>
   <div class="card shadow-sm">
     <div class="card-body">
-      <?php if (!$customers): ?>
-        <div class="alert alert-warning mb-0">
-          No customers found with last name starting with <strong><?= htmlspecialchars($lastName) ?></strong>.
-        </div>
-      <?php else: ?>
         <div class="table-responsive">
           <table class="table table-striped table-bordered mb-0">
             <thead class="table-dark">
@@ -68,10 +69,13 @@ if ($lastName !== '') {
             </tbody>
           </table>
         </div>
-      <?php endif; ?>
     </div>
   </div>
-<?php endif; ?>
+<?php elseif ($lastName !== ''): ?>
+          <div class="alert alert-warning mb-0">
+          No customers found with last name starting with <strong><?= htmlspecialchars($lastName) ?></strong>.
+        </div>
+      <?php endif; ?>
 
 <a href="../../index.php" class="btn btn-secondary mt-3">Back to Home</a>
 <a href="manage_customers.php" class="btn btn-primary mt-3">Back</a> <!-- added a back button to manage customers page --> 

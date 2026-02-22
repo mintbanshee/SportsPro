@@ -1,12 +1,19 @@
 <?php
-require __DIR__ . '/../db/database.php';
-require __DIR__ . '/../models/product_db.php';
-require __DIR__ . '/../config/app.php';
-require __DIR__ . '/../auth/require_admin.php';
+declare(strict_types=1);
+
+require_once __DIR__ . '/../db/database.php';
+require_once __DIR__ . '/../models/product_db.php';
+require_once __DIR__ . '/../config/app.php';
 
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 
-$action = filter_input(INPUT_POST, 'action') ?? filter_input(INPUT_GET, 'action') ?? 'manage_products';
+$action = filter_input(INPUT_POST, 'action') 
+       ?? filter_input(INPUT_GET, 'action') 
+       ?? 'manage_products';
+
+require_once __DIR__ . '/../auth/require_admin.php';
+
+$pdo = Database::getDB();
 
 switch ($action) {
     case 'manage_products': 
@@ -55,6 +62,7 @@ switch ($action) {
             exit;
         }
 
+       try {
         // insert the new product into the database
         addProduct($productCode, $name, $version, $formattedDate);
 
@@ -62,5 +70,10 @@ switch ($action) {
 
         header("Location: " . BASE_URL . "controllers/product_controller.php?action=manage_products");
         exit;
+      } catch (TypeError $e) {
+        $_SESSION['error_message'] = $e->getMessage();
+        header("Location: " . BASE_URL . "views/admin/error.php");
+        exit;
+      }
         break;
 }

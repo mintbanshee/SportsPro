@@ -1,6 +1,8 @@
 
 <?php
 require __DIR__ . '/views/header.php';
+
+$base_url = 'http://localhost/PHPAssignments/SportsPro';
 ?>
 
 <!-- PAGE HEADER -->
@@ -28,7 +30,7 @@ require __DIR__ . '/views/header.php';
             Manage Technicians
         </a>
 
-        <a href="<?= $base_url ?>/views/admin/manage_customers.php" 
+        <a href="<?= $base_url ?>/controllers/customer_controller.php?action=manage_customers"
             class="list-group-item list-group-item-action">
             Manage Customers
         </a>

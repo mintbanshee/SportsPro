@@ -1,11 +1,12 @@
 <?php 
-
 declare(strict_types=1); 
-require __DIR__ . '/../config/app.php';
-require __DIR__ . '/../db/database.php'; 
-require __DIR__ . '/../views/header.php';
+require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . '/../db/database.php'; 
+
 
 if (session_status() === PHP_SESSION_NONE) session_start(); 
+
+$pdo = Database::getDB();
 
 $error = ''; 
 $email = ''; 
@@ -32,17 +33,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]; 
 
   // Redirects  
-  if ($user['role'] === 'admin') { 
-    header('Location: ' . BASE_URL . '/views/admin/dashboard.php'); 
-    } elseif  
-      (!empty($return_url)) {
-      header('Location: ' . BASE_URL . '/views/customers/' . $return_url); // if the return URL exists, return to register_product 
-    } else {
-    header('Location: ' . BASE_URL . '/views/customers/index.php'); 
+  if (!empty($_SESSION['redirect_url'])) { 
+    $destination = $_SESSION['redirect_url'];
+    unset($_SESSION['redirect_url']);
+    header('Location: ' . $destination);
+    exit;
   } 
-  exit; 
-  } 
-} 
+
+  if ($user['role'] === 'admin') {
+    header('Location: ' . BASE_URL . 'views/admin/dashboard.php');
+  } else {
+    header('Location: ' . BASE_URL . 'views/customers/index.php');
+  }
+  exit;
+  }
+}
+
+require_once __DIR__ . '/../views/header.php';
+
 ?> 
 
 <!doctype html> 

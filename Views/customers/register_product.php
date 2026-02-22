@@ -1,16 +1,22 @@
 <?php 
-
 declare(strict_types=1); 
 
-require __DIR__ . '/../../db/database.php';
-require __DIR__ . '/../../config/app.php';
-require __DIR__ . '/../../auth/require_login.php'; 
-require __DIR__ . '/../header.php';
+require_once __DIR__ . '/../../db/database.php';
+require_once __DIR__ . '/../../config/app.php';
+require_once __DIR__ . '/../../auth/require_login.php'; 
+
+$pdo = Database::getDB();
 
 if (session_status() === PHP_SESSION_NONE) session_start(); 
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $customer_id = $_SESSION['user']['user_id'];
+    $statement = $pdo->prepare("SELECT * FROM customers WHERE customerID = :id");
+    $statement->execute(['id' => $customer_id]);
+    $customer = $statement->fetch(PDO::FETCH_ASSOC);
+    if (!$customer) {
+      die("Cannot register product: Customer not found in system.");
+    }
     $product_code = $_POST['product_code'];
     $reg_date = date('Y-m-d H:i:s');
 
@@ -49,7 +55,10 @@ $sql = "SELECT name, version, productCode
         ORDER BY name, version";
 $products = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
+require __DIR__ . '/../header.php';
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

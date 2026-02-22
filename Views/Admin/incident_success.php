@@ -1,7 +1,7 @@
 <?php
-require __DIR__ . '/../../db/database.php';
-require __DIR__ . '/../../auth/require_admin.php';
-require __DIR__ . '/../header.php';
+require_once __DIR__ . '/../../db/database.php';
+require_once __DIR__ . '/../../auth/require_admin.php';
+require_once __DIR__ . '/../header.php';
 ?>
 
 

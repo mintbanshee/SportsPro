@@ -1,19 +1,20 @@
 <?php
-$dsn = 'mysql:host=localhost;dbname=tech_support;charset=utf8mb4'; // connect to tech_support database
-$username = 'root';
-$password = '';
-
-try {
-    $pdo = new PDO($dsn, $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Database error: " . $e->getMessage();
-    exit;
-}
 
 class Database {
-    public static function getDB() {
-        global $pdo;
-        return $pdo;
+    private static ?PDO $pdo = null;
+
+    public static function getDB(): PDO {
+        if (self::$pdo === null) {
+            $dsn = 'mysql:host=localhost;dbname=tech_support;charset=utf8mb4';
+            $username = 'root';
+            $password = '';
+            try {
+                self::$pdo = new PDO($dsn, $username, $password);
+                self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                die("Database connection failed: " . $e->getMessage());
+            }
+        }
+        return self::$pdo;
     }
 }

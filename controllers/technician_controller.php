@@ -1,9 +1,11 @@
 <?php
-require __DIR__ . '/../db/database.php';
-require __DIR__ . '/../config/app.php';
-require __DIR__ . '/../auth/require_admin.php';
-require __DIR__ . '/../models/technician.php';
-require __DIR__ . '/../models/technician_db.php';
+declare(strict_types=1);
+
+require_once __DIR__ . '/../db/database.php';
+require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . '/../auth/require_admin.php';
+require_once __DIR__ . '/../models/technician.php';
+require_once __DIR__ . '/../models/technician_db.php';
 
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -12,6 +14,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 
 $action = filter_input(INPUT_POST, 'action') ?? filter_input(INPUT_GET, 'action') ?? 'manage_technicians';
+
+$pdo = Database::getDB();
 
 switch ($action) {
 
@@ -38,7 +42,6 @@ switch ($action) {
     $lastName  = trim($_POST['lastName'] ?? '');
     $email     = trim($_POST['email'] ?? '');
     $phone     = trim($_POST['phone'] ?? '');
-    $password  = trim($_POST['password'] ?? 'sesame');
 
     // Validate: every field required
     if ($firstName === '' || $lastName === '' || $email === '' || $phone === '') {
@@ -56,7 +59,6 @@ switch ($action) {
     $tech->lastName = $lastName;
     $tech->email = $email;
     $tech->phone = $phone;
-    $tech->password = $password;
 
     TechnicianDB::addTechnician($tech);
 

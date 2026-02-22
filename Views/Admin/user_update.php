@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
-require __DIR__ . '/../../db/database.php';
-require __DIR__ . '/../../config/app.php';
-require __DIR__ . '/../../auth/require_admin.php';
+require_once __DIR__ . '/../../db/database.php';
+require_once __DIR__ . '/../../config/app.php';
+require_once __DIR__ . '/../../auth/require_admin.php';
+
+$pdo = Database::getDB();
 
 $user_id = filter_input(INPUT_POST, 'user_id', FILTER_VALIDATE_INT); 
 $lastNameSearch = trim($_POST['lastNameSearch'] ?? ''); 

@@ -1,7 +1,7 @@
 <?php
-require __DIR__ . '/../db/database.php';
-require __DIR__ . '/../config/app.php';
-require __DIR__ . '/../auth/require_admin.php';
+require_once __DIR__ . '/../db/database.php';
+require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . '/../auth/require_admin.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -11,17 +11,23 @@ if (session_status() === PHP_SESSION_NONE) {
 $action = filter_input(INPUT_POST, 'action') ?? filter_input(INPUT_GET, 'action')
     ?? 'manage_customers'; // default action for if not specified
 
+    $pdo = Database::getDB();
+    
 switch ($action) {
     case 'manage_customers': // replace the manage_customers php from admin file
-        $lastName = filter_input(INPUT_GET, 'lastName'); //get the search input
-        if ($lastName) {
+        $lastName = trim(filter_input(INPUT_GET, 'lastName') ?? ''); //get the search input
+        $lastNameSearch = $lastName;
+
+        if ($lastName !== '') {
           $stmt = $pdo->prepare("SELECT * FROM customers WHERE lastName LIKE :lastName");
           // used LIKE to be more user friendly
           $stmt->execute(['lastName' => $lastName . '%']);
           // used % as a wildcard to match incomplete last name search input
           $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } else {
-          $customers = []; // empty when page loads 
+          $stmt = $pdo->prepare("SELECT * FROM customers ORDER BY lastName, firstName");
+          $stmt->execute();
+          $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         include __DIR__ . '/../views/admin/manage_customers.php';
@@ -64,23 +70,39 @@ switch ($action) {
           'postalCode'  => trim($_POST['postalCode'] ?? ''),
           'countryCode' => trim($_POST['countryCode'] ?? ''),
         ];
-
+        
         if (!$customerID) {
-          header("Location: /manage_customers.php"); // changed to manage customers 
+          header("Location: " . BASE_URL . "controllers/customer_controller.php?action=manage_customers"); 
           exit;
         }
 
-        // Validate required fields (per spec)
-        foreach ($fields as $k => $v) {
-          if ($v === '') {
-            header("Location: error.php?msg=required");
-            exit;
-          }
+        $errors = [];
+        // email must be valid
+        if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors[] = "Invalid email format.";            
+        }
+        // state must be 1 - 50 chars
+        if (strlen($fields['state']) < 1 || strlen($fields['state']) > 50) {
+            $errors[] = "State must be 1-50 characters.";
+        }
+        // phone must be (999) 999-9999
+        if (!preg_match('/^\(\d{3}\) \d{3}-\d{4}$/', $fields['phone'])) {
+            $errors[] = "Phone must be in (999) 999-9999 format.";
         }
 
-        $stmt = $pdo->prepare("
-          UPDATE customers
-          SET firstName=:firstName,
+        if ($errors) {
+            $customer = $fields;       
+            $customer['customerID'] = $customerID; 
+            $countries = $pdo->query("SELECT * FROM countries ORDER BY countryName")->fetchAll(PDO::FETCH_ASSOC); 
+            $error = implode("<br>", $errors);
+            include __DIR__ . '/../views/admin/customer_edit.php';
+            exit;
+        }
+
+        try {
+          $stmt = $pdo->prepare("
+            UPDATE customers
+            SET firstName=:firstName,
               lastName=:lastName,
               email=:email,
               phone=:phone,
@@ -89,8 +111,8 @@ switch ($action) {
               state=:state,
               postalCode=:postalCode,
               countryCode=:countryCode
-          WHERE customerID=:id
-        ");
+            WHERE customerID=:id
+          ");
 
         $stmt->execute($fields + ['id' => $customerID]);
 
@@ -98,4 +120,13 @@ switch ($action) {
         $_SESSION['flash_success'] = "Customer updated successfully!";
         header("Location: " . BASE_URL . "controllers/customer_controller.php?action=manage_customers&lastName=" . urlencode($lastNameSearch));
         exit;
+  } catch (PDOException $e) {
+      $customer = $fields;
+      $customer['customerID'] = $customerID;
+      $countries = $pdo->query("SELECT * FROM countries ORDER BY countryName")->fetchAll(PDO::FETCH_ASSOC);
+      $error = "Database error: " . $e->getMessage();
+      include __DIR__ . '/../views/admin/customer_edit.php';
+      exit;
+  }
+  break;
 }

@@ -1,6 +1,6 @@
 <?php
-require __DIR__ . '/../header.php';
-require __DIR__ . '/../../config/app.php';
+require_once __DIR__ . '/../header.php';
+require_once __DIR__ . '/../../config/app.php';
 ?>
 
 <div class="d-flex align-items-center justify-content-between mb-3">
@@ -20,14 +20,14 @@ require __DIR__ . '/../../config/app.php';
   <tbody>
     <?php foreach ($technicians as $t): ?>
       <tr>
-        <td><?= htmlspecialchars($t['firstName'] . ' ' . $t['lastName']) ?></td>
-        <td><?= htmlspecialchars($t['email']) ?></td>
-        <td><?= htmlspecialchars($t['phone']) ?></td>
+        <td><?= htmlspecialchars($t->firstName . ' ' . $t->lastName) ?></td>
+        <td><?= htmlspecialchars($t->email) ?></td>
+        <td><?= htmlspecialchars($t->phone) ?></td>
         <td>
           <form method="post" action="<?= BASE_URL ?>controllers/technician_controller.php?action=delete_technician"
                 onsubmit="return confirm('Delete this technician?');">
             <input type="hidden" name="action" value="delete_technician">
-            <input type="hidden" name="techID" value="<?= (int)$t['techID'] ?>">
+            <input type="hidden" name="techID" value="<?= (int)$t->techID ?>">
             <button class="btn btn-sm btn-danger" type="submit">Delete</button>
           </form>
         </td>

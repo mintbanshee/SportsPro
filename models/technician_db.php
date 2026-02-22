@@ -22,15 +22,14 @@ class TechnicianDB {
   public static function addTechnician(Technician $tech) {
     $db = Database::getDB();
     $statement = $db->prepare("
-      INSERT INTO technicians (firstName, lastName, email, phone, password)
-      VALUES (:first, :last, :email, :phone, :password)
+      INSERT INTO technicians (firstName, lastName, email, phone)
+      VALUES (:first, :last, :email, :phone)
     ");
     $statement->execute ([
       'first' => $tech->firstName,
       'last' => $tech->lastName,
       'email' => $tech->email,
       'phone' => $tech->phone,
-      'password' => password_hash($tech->password, PASSWORD_DEFAULT)
     ]);
   }
   
