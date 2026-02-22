@@ -1,19 +1,20 @@
 <?php
 require_once __DIR__ . '/../header.php';
 ?>
+<?php
+$isAdd = empty($customer['customerID']);
+?>
 
-<h2 class="mb-3">View/Update Customer</h2>
+<h2 class="mb-3"><?= $isAdd ? 'Add Customer' : 'View/Update Customer' ?></h2>
 
-<p>
-  <a href="<?= BASE_URL ?>controllers/customer_controller.php?action=manage_customers&lastName=<?php echo urlencode($lastNameSearch); ?>">
-    Search Customers
-  </a>
-</p>
 
-<form method="post" action="<?= BASE_URL ?>controllers/customer_controller.php" onsubmit="return confirm('Save changes to customer?');" class="card p-3 shadow-sm" style="max-width: 800px;">
+<form method="post" action="<?= BASE_URL ?>controllers/customer_controller.php" onsubmit="return confirm('<?= $isAdd ? 'Add this customer?' : 'Save changes to customer?' ?>');" class="card p-3 shadow-sm" style="max-width: 800px;">
+<input type="hidden" name="lastNameSearch" value="<?= htmlspecialchars($lastNameSearch ?? '') ?>">
+<input type="hidden" name="action" value="<?= $isAdd ? 'create_customer' : 'update_customer' ?>">
+
+<?php if (!$isAdd): ?>
   <input type="hidden" name="customerID" value="<?= (int)$customer['customerID'] ?>">
-  <input type="hidden" name="lastNameSearch" value="<?= htmlspecialchars($lastNameSearch ?? '') ?>">
-  <input type="hidden" name="action" value="update_customer">
+<?php endif; ?>
 
   <div class="row g-3">
     <div class="col-md-6">
@@ -76,7 +77,9 @@ require_once __DIR__ . '/../header.php';
       Back 
       <!-- I changed this to manage customers since I added search bar to manage customers page --> 
     </a>
-    <button type="submit" class="btn btn-primary">Update Customer</button>
+    <button type="submit" class="btn btn-primary">
+        <?= $isAdd ? 'Add Customer' : 'Update Customer' ?>
+    </button>
 
   </div>
 </form>

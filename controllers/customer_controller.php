@@ -70,6 +70,98 @@ switch ($action) {
 
         include __DIR__ . '/../views/admin/customer_edit.php';
         break;
+    case 'add_customer':
+        $lastNameSearch = trim($_GET['lastName'] ?? '');
+        
+        // blank - no customer details exist yet
+        $customer = [
+          'customerID' => '',
+          'firstName' => '',
+          'lastName' => '',
+          'email' => '',
+          'phone' => '',
+          'address' => '',
+          'city' => '',
+          'state' => '',
+          'postalCode' => '',
+          'countryCode' => '',
+        ];
+        try {
+          // get countries for dropdown 
+          $countriesStmt = $pdo->prepare("SELECT * FROM countries ORDER BY countryName");
+          $countriesStmt->execute();
+          $countries = $countriesStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            
+            include __DIR__ . '/../views/admin/error.php';
+            exit();
+        } // close catch
+        include __DIR__ . '/../views/admin/customer_edit.php';
+        break;
+
+    case 'create_customer':
+          $lastNameSearch = trim($_POST['lastNameSearch'] ?? '');
+
+          $fields = [
+            'firstName'   => trim($_POST['firstName'] ?? ''),
+            'lastName'    => trim($_POST['lastName'] ?? ''),
+            'email'       => trim($_POST['email'] ?? ''),
+            'phone'       => trim($_POST['phone'] ?? ''),
+            'address'     => trim($_POST['address'] ?? ''),
+            'city'        => trim($_POST['city'] ?? ''),
+            'state'       => trim($_POST['state'] ?? ''),
+            'postalCode'  => trim($_POST['postalCode'] ?? ''),
+            'countryCode' => trim($_POST['countryCode'] ?? ''),
+          ];
+
+          $errors = [];
+
+        if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors[] = "Invalid email format.";            
+        }
+        if (strlen($fields['state']) < 1 || strlen($fields['state']) > 50) {
+            $errors[] = "State must be 1-50 characters.";
+        }
+        if (!preg_match('/^\(\d{3}\) \d{3}-\d{4}$/', $fields['phone'])) {
+            $errors[] = "Phone must be in (999) 999-9999 format.";
+        }
+
+      try {
+        if ($errors) {
+            $customer = $fields;       
+            $customer['customerID'] = '';
+
+            $countriesStmt = $pdo->prepare("SELECT * FROM countries ORDER BY countryName");
+            $countriesStmt->execute();
+            $countries = $countriesStmt->fetchAll(PDO::FETCH_ASSOC); 
+            
+            $error = implode("<br>", $errors);
+            include __DIR__ . '/../views/admin/customer_edit.php';
+            exit;
+        }
+
+          // insert new customer to database
+          $statement = $pdo->prepare ("
+            INSERT INTO customers
+              (firstName, lastName, email, phone, address, city, state, postalCode, countryCode)
+            VALUES
+              (:firstName, :lastName, :email, :phone, :address, :city, :state, :postalCode, :countryCode)
+          ");
+          $statement->execute($fields);
+
+          $_SESSION['flash_success'] = "Customer added successfully!";
+          header("Location: " . BASE_URL . "controllers/customer_controller.php?action=manage_customers&lastName=" . urlencode($lastNameSearch));
+          exit;
+
+      } catch (PDOException $e) {
+          $error_message = $e->getMessage();
+
+          include __DIR__ . '/../views/admin/error.php';
+          exit();
+      }
+      break;
 
     case 'update_customer':
         $customerID = filter_input(INPUT_POST, 'customerID', FILTER_VALIDATE_INT);
@@ -109,10 +201,12 @@ switch ($action) {
       try {
         if ($errors) {
             $customer = $fields;       
-            $customer['customerID'] = $customerID; 
+            $customer['customerID'] = $customerID;
+
             $countriesStmt = $pdo->prepare("SELECT * FROM countries ORDER BY countryName");
             $countriesStmt->execute();
             $countries = $countriesStmt->fetchAll(PDO::FETCH_ASSOC); 
+
             $error = implode("<br>", $errors);
             include __DIR__ . '/../views/admin/customer_edit.php';
             exit;

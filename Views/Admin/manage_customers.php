@@ -46,6 +46,10 @@ require_once __DIR__ . '/../header.php';
 </table>
 
 <a href="<?= BASE_URL ?>index.php" class="btn btn-secondary">Back to Home</a>
+<a class="btn btn-primary"
+    href="<?= BASE_URL ?>controllers/customer_controller.php?action=add_customer&lastName=<?= urlencode($lastName ?? '') ?>">
+    Add New Customer
+</a>
 
 <?php if (isset($_SESSION['flash_success'])): ?>
     <script>alert("<?= $_SESSION['flash_success'] ?>");</script>
