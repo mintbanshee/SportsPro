@@ -10,42 +10,114 @@ $pdo = Database::getDB();
 
 $error = ''; 
 $email = ''; 
-$return_url = $_GET['return'] ?? ''; // if coming from register_product page, GET the return URL from the redirect 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {  
   $email = strtolower(trim($_POST['email'] ?? '')); 
   $password = $_POST['password'] ?? ''; 
 
-  $stmt = $pdo->prepare("SELECT user_id, email, password_hash, role, first_name, last_name FROM users WHERE email = :email"); 
-  $stmt->execute(['email' => $email]); 
-  $user = $stmt->fetch(PDO::FETCH_ASSOC); 
+// starting with an empty slot
+// then will try each account table to find which one is logging in
+// this will allow us to have various roles from different tables that are not connected
+// if I had the time I would redo it so they are all "user" and the user has
+// either admin, technician or customer role which would be changeable on admin dashboard
 
-  if (!$user || !password_verify($password, $user['password_hash'])) { 
-    $error = "Invalid email or password."; 
-  } else { 
-    session_regenerate_id(true); 
+  $account = null; 
 
-    $_SESSION['user'] = [ 
-      'user_id' => (int)$user['user_id'], 
-      'email' => $user['email'], 
-      'role' => $user['role'], 
-      'name' => trim(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? '')), 
-    ]; 
+  // try users tables
+  $statement = $pdo->prepare("
+    SELECT user_id, email, password_hash, role, first_name, last_name
+    FROM users
+    WHERE email = :email
+  "); 
+  $statement->execute([':email' => $email]); 
+  $user = $statement->fetch(PDO::FETCH_ASSOC); 
 
-  // Redirects  
-  if (!empty($_SESSION['redirect_url'])) { 
-    $destination = $_SESSION['redirect_url'];
-    unset($_SESSION['redirect_url']);
-    header('Location: ' . $destination);
-    exit;
-  } 
-
-  if ($user['role'] === 'admin') {
-    header('Location: ' . BASE_URL . 'views/admin/dashboard.php');
-  } else {
-    header('Location: ' . BASE_URL . 'views/customers/index.php');
+  if ($user && password_verify($password, $user['password_hash'])) {
+    $account = [
+      'role' => $user['role'],               
+      'id'   => (int)$user['user_id'],
+      'email'=> $user['email'],
+      'name' => trim(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? '')),
+    ];
   }
-  exit;
+
+  // next try technicians table
+  if (!$account) {
+    $statement = $pdo->prepare("
+      SELECT techID, email, passwordHash, firstName, lastName
+      FROM technicians
+      WHERE email = :email
+    ");
+    $statement->execute([':email' => $email]);
+    $tech = $statement->fetch(PDO::FETCH_ASSOC);
+
+    if ($tech && password_verify($password, $tech['passwordHash'])) {
+      $account = [
+        'role' => 'technician',
+        'id'   => (int)$tech['techID'],
+        'email'=> $tech['email'],
+        'name' => trim(($tech['firstName'] ?? '') . ' ' . ($tech['lastName'] ?? '')),
+      ];
+    }
+  }
+
+  // lastly try customers table
+  if (!$account) {
+    $statement = $pdo->prepare("
+      SELECT customerID, email, passwordHash, firstName, lastName
+      FROM customers
+      WHERE email = :email
+    ");
+    $statement->execute([':email' => $email]);
+    $cust = $statement->fetch(PDO::FETCH_ASSOC);
+
+    if ($cust && password_verify($password, $cust['passwordHash'])) {
+      $account = [
+        'role' => 'customer',
+        'id'   => (int)$cust['customerID'],
+        'email'=> $cust['email'],
+        'name' => trim(($cust['firstName'] ?? '') . ' ' . ($cust['lastName'] ?? '')),
+      ];
+    }
+  }
+
+  // if none of the tables were logging in - fail the login 
+  if (!$account) {
+    $error = "Invalid email or password.";
+  } else {
+    session_regenerate_id(true);
+
+    
+    $_SESSION['user'] = [
+      'role'  => $account['role'],
+      'id'    => $account['id'],
+      'email' => $account['email'],
+      'name'  => $account['name'],
+    ];
+
+    // Redirect override
+    if (!empty($_SESSION['redirect_url'])) { 
+      $destination = $_SESSION['redirect_url'];
+      unset($_SESSION['redirect_url']);
+      header('Location: ' . $destination);
+      exit;
+    }
+
+    // admin dashboard
+    if ($_SESSION['user']['role'] === 'admin') {
+      header('Location: ' . BASE_URL . 'views/admin/dashboard.php');
+      exit;
+    }
+
+    // technician dashboard
+    if ($_SESSION['user']['role'] === 'technician') {
+      header('Location: ' . BASE_URL . 'views/technicians/index.php');
+      exit;
+    }
+
+    // customer - My Account
+    header('Location: ' . BASE_URL . 'views/customers/index.php');
+    exit;
   }
 }
 
@@ -53,14 +125,12 @@ require_once __DIR__ . '/../views/header.php';
 
 ?> 
 
-<!doctype html> 
-<html> 
-<head><meta charset="utf-8"><title>Login</title></head> 
-<body> 
-
 <h2 class="mb-3">Login</h2>
+<?php if (!empty($error)): ?>
+  <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+<?php endif; ?>
 <!-- action ensures user returns even if they mistype password and then they get sent again to login page --> 
-<form method="post" action="login.php?return=<?=htmlspecialchars($return_url) ?>"  class="card p-3 shadow-sm" style="max-width: 650px;">
+<form method="post" action="login.php"  class="card p-3 shadow-sm" style="max-width: 650px;">
   <div class="mb-3">
     <label class="form-label">Email</label>
     <input name="email" class="form-control" required maxlength="50" value="<?= htmlspecialchars($email) ?>">
