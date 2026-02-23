@@ -10,11 +10,6 @@ $pdo = Database::getDB();
 
 ?>
 
-<!doctype html> 
-<html> 
-<head><meta charset="utf-8"><title>My Account</title></head> 
-<body> 
-
 <div class="text-center mb-5">
     <h1 class="fw-bold">My Account</h1>
     <p class="lead text-muted">

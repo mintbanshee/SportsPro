@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // technician dashboard
     if ($_SESSION['user']['role'] === 'technician') {
-      header('Location: ' . BASE_URL . 'views/technicians/index.php');
+      header('Location: ' . BASE_URL . '/controllers/incident_controller.php?action=tech_dashboard');
       exit;
     }
 
