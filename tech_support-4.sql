@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 16, 2026 at 04:08 AM
+-- Generation Time: Feb 23, 2026 at 08:38 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -85,10 +85,11 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customerID`, `firstName`, `lastName`, `address`, `city`, `state`, `postalCode`, `countryCode`, `phone`, `email`, `passwordHash`) VALUES
-(1, 'Alex', 'Morgan', '10 King St', 'Toronto', 'ON', 'M5H 1A1', 'CA', '416-111-2222', 'alex@example.com', NULL),
-(2, 'Jamie', 'Lee', '200 Main Ave', 'Buffalo', 'NY', '14201', 'US', '716-333-4444', 'jamie@example.com', NULL),
-(5, 'Usagi', 'Tsukino', '134 Azabu-Juban', 'Minato-ku', 'Tokyo', 'U3A 6I0', 'JP', '433-111-3377', 'moonprincess@sailorsenshi.com', NULL),
-(6, 'Joan', 'Loon', '232 Dell Ave', 'Chelmsford', 'ON', 'P0M 1L0', 'CA', '705-333-4455', 'loonpainter@email.com', NULL);
+(1, 'Alex', 'Morgan', '10 King St', 'Toronto', 'ON', 'M5H 1A1', 'CA', '416-111-2222', 'alex@example.com', '$2y$10$cNufNdVc2YyjZNRJjQo9GO/Abct2JtHIqCycUO9H3AB0T7f9vjHgi'),
+(2, 'Jamie', 'Lee', '200 Main Ave', 'Buffalo', 'NY', '14201', 'US', '716-333-4444', 'jamie@example.com', '$2y$10$cNufNdVc2YyjZNRJjQo9GO/Abct2JtHIqCycUO9H3AB0T7f9vjHgi'),
+(5, 'Usagi', 'Tsukino', '134 Azabu-Juban', 'Minato-ku', 'Tokyo', 'U3A 6I0', 'JP', '(433) 111-3377', 'moonprincess@sailorsenshi.com', '$2y$10$cNufNdVc2YyjZNRJjQo9GO/Abct2JtHIqCycUO9H3AB0T7f9vjHgi'),
+(6, 'Joan', 'Loon', '232 Dell Ave', 'Chelmsford', 'ON', 'P0M 1L0', 'CA', '705-333-4455', 'loonpainter@email.com', '$2y$10$cNufNdVc2YyjZNRJjQo9GO/Abct2JtHIqCycUO9H3AB0T7f9vjHgi'),
+(7, 'Robert', 'McGregor', '123 Roy Lane', 'Highlands', 'LK', 'K6V 4H1', 'CA', '(777) 983-4367', 'robroy@legends.com', '$2y$10$cNufNdVc2YyjZNRJjQo9GO/Abct2JtHIqCycUO9H3AB0T7f9vjHgi');
 
 -- --------------------------------------------------------
 
@@ -113,7 +114,11 @@ CREATE TABLE `incidents` (
 
 INSERT INTO `incidents` (`incidentID`, `customerID`, `productCode`, `techID`, `dateOpened`, `dateClosed`, `title`, `description`) VALUES
 (1, 1, 'BB10', 1, '2026-01-28 20:52:00', NULL, 'Cannot save league', 'Error appears when saving.'),
-(2, 2, 'SC15', NULL, '2026-01-28 20:52:00', NULL, 'Install issue', 'Setup fails at step 2.');
+(2, 2, 'SC15', 2, '2026-01-28 20:52:00', NULL, 'Install issue', 'Setup fails at step 2.'),
+(3, 5, 'CT92', 1, '2026-02-19 03:20:58', '2026-02-23 00:00:00', 'Missing team members', '// cx noticed missing team members from 3 teams.\r\n// cx requests quick patch to fix issue or refund.\r\n\r\n// tech updated system with missing members\r\n// advise cx install update'),
+(4, 5, 'BB10', 2, '2026-02-21 23:29:57', NULL, 'Broken', 'baseball is broken - just testing after assignment tweaks'),
+(5, 5, 'CT92', 1, '2026-02-23 19:18:23', NULL, 'Blank Screen', '// cx has loading issue - blank screen when opening the program\r\n// cx cannot click anywhere\r\n// cx has tried uninstall / reinstall '),
+(6, 5, 'BB10', NULL, '2026-02-23 19:27:15', NULL, 'Loading Error', '//cx has screen glitches upon loading program');
 
 -- --------------------------------------------------------
 
@@ -135,10 +140,13 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`productCode`, `name`, `version`, `releaseDate`) VALUES
 ('BB10', 'Baseball Pro', '1.0', '2025-09-01'),
 ('CT92', 'Curling Team Roster', '3.1', '2026-02-13'),
+('H35L', 'Hockey CA vs US Tracker', '5.2', '2026-02-02'),
+('K1w1', 'TypeError Test', 'Pen-Pineapple-Apple', '2026-02-21'),
+('klm33', 'error test', 'kiwi', '2026-02-21'),
 ('LC23', 'Badminton Racket Rater', '1.2', '2026-02-02'),
 ('LM145', 'Volleyball Score Tracker', '1.2', '2026-02-13'),
-('SC15', 'Soccer Pro', '1.5', '2025-06-15'),
-('T43M', 'Tennis Pro 3', '3.6', '2026-02-10');
+('LX3', 'Figure Skating Pro 6', '3', '2026-02-03'),
+('SC15', 'Soccer Pro', '1.5', '2025-06-15');
 
 -- --------------------------------------------------------
 
@@ -164,8 +172,8 @@ INSERT INTO `registrations` (`registrationID`, `customerID`, `productCode`, `reg
 (4, 5, 'BB10', '2026-02-13 20:16:05'),
 (8, 5, 'LM145', '2026-02-13 20:39:54'),
 (9, 5, 'CT92', '2026-02-13 20:43:30'),
-(10, 5, 'T43M', '2026-02-13 20:44:20'),
-(11, 5, 'LC23', '2026-02-13 21:00:48');
+(11, 5, 'LC23', '2026-02-13 21:00:48'),
+(18, 5, 'H35L', '2026-02-21 23:42:52');
 
 -- --------------------------------------------------------
 
@@ -187,8 +195,8 @@ CREATE TABLE `technicians` (
 --
 
 INSERT INTO `technicians` (`techID`, `firstName`, `lastName`, `email`, `phone`, `passwordHash`) VALUES
-(1, 'Taylor', 'Ng', 'tng@sportspro.com', '416-555-9876', NULL),
-(2, 'Chris', 'Patel', 'cpatel@sportspro.com', '416-555-4567', NULL);
+(1, 'Taylor', 'Ng', 'tng@sportspro.com', '416-555-9876', '$2y$10$cNufNdVc2YyjZNRJjQo9GO/Abct2JtHIqCycUO9H3AB0T7f9vjHgi'),
+(2, 'Chris', 'Patel', 'cpatel@sportspro.com', '416-555-4567', '$2y$10$cNufNdVc2YyjZNRJjQo9GO/Abct2JtHIqCycUO9H3AB0T7f9vjHgi');
 
 --
 -- Indexes for dumped tables
@@ -260,25 +268,25 @@ ALTER TABLE `administrators`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `incidents`
 --
 ALTER TABLE `incidents`
-  MODIFY `incidentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `incidentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `registrations`
 --
 ALTER TABLE `registrations`
-  MODIFY `registrationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `registrationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `technicians`
 --
 ALTER TABLE `technicians`
-  MODIFY `techID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `techID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
