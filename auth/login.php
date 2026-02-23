@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   // if none of the tables were logging in - fail the login 
+  // if login successful secure the session by giving the user a fresh session ID
   if (!$account) {
     $error = "Invalid email or password.";
   } else {
@@ -95,7 +96,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       'name'  => $account['name'],
     ];
 
-    // Redirect override
+    // if they are logging in from a page redirect
+    // for example an admin trying to view incidents
+    // remember what page they came from and send them back to it
+    // after successful login 
     if (!empty($_SESSION['redirect_url'])) { 
       $destination = $_SESSION['redirect_url'];
       unset($_SESSION['redirect_url']);
@@ -103,19 +107,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       exit;
     }
 
-    // admin dashboard
+    // if the login is an admin send to admin dashboard
     if ($_SESSION['user']['role'] === 'admin') {
       header('Location: ' . BASE_URL . 'views/admin/dashboard.php');
       exit;
     }
 
-    // technician dashboard
+    // if the login is a technician send to technician dashboard
     if ($_SESSION['user']['role'] === 'technician') {
       header('Location: ' . BASE_URL . '/controllers/incident_controller.php?action=tech_dashboard');
       exit;
     }
 
-    // customer - My Account
+    // if the login is a customer send to the My Account page 
     header('Location: ' . BASE_URL . 'views/customers/index.php');
     exit;
   }
