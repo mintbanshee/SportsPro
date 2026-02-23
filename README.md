@@ -39,7 +39,7 @@ This is a PHP/MySQL application for tracking technical support incidents.
 - started to update data access functions to return arrays instead of pdo statement object
 - upgraded input validation
 - added some session handling for success messages
-- 
+- added ability to assign incident to technician for admins
 
 ### Previous Focus (Assignment 2 & 3)
 - Initialize the tech_support database. 
@@ -161,6 +161,25 @@ Move php logic in to controller files.
 <img width="1395" height="933" alt="CxAddSuccess" src="https://github.com/user-attachments/assets/cd5b2c60-b1ed-454e-9f4a-5f24fbcca299" />
 
 <img width="1399" height="803" alt="UpdatedCxList" src="https://github.com/user-attachments/assets/be137974-131d-470d-bca7-2b05d311bb37" />
+
+<img width="1370" height="707" alt="SelectIncident" src="https://github.com/user-attachments/assets/6236a584-01de-4185-b61f-34071b3f3a7f" />
+
+<img width="1372" height="690" alt="SelectTechnician" src="https://github.com/user-attachments/assets/b922ce30-be47-4ecb-a732-6006322b5d6c" />
+
+<img width="1360" height="606" alt="AssignIncident" src="https://github.com/user-attachments/assets/bef68af3-c2c3-4f42-ae2d-48adc901c8a2" />
+
+<img width="1360" height="836" alt="AssignSuccess" src="https://github.com/user-attachments/assets/414e5e9a-3751-4f69-ab9a-79b22574ee75" />
+
+
+
+
+
+
+
+
+
+
+
 
 
 
