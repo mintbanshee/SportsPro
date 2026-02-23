@@ -45,7 +45,7 @@ $pdo = Database::getDB();
           </td>
           <td>
             <a class="btn btn-sm btn-secondary"
-              href="<?= BASE_URL ?>controllers/incident_controller.php?action=store_incident&id=<?= (int)$i['incidentID'] ?>">
+              href="<?= BASE_URL ?>controllers/incident_controller.php?action=edit_incident&id=<?= (int)$i['incidentID'] ?>">
               Select
             </a>
           </td>

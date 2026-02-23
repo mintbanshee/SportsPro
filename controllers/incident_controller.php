@@ -314,6 +314,109 @@ switch ($action) {
     exit;
     break;
 
+  case 'edit_incident':
+    // allow technicians to click select button to close an incident and add tech note in description
+    if (empty($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') !== 'technician') {
+      header("Location: " . BASE_URL . "auth/login.php");
+    exit;
+    }
+
+    $incident_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+    if (!$incident_id) {
+      $error_message = "Missing or invalid incident ID.";
+      include __DIR__ . '/../views/admin/error.php';
+      exit;
+    }
+
+    $tech_id = (int)$_SESSION['user']['id'];
+
+    try {
+      $statement = $pdo->prepare ("
+        SELECT  i.incidentID, i.productCode, i.dateOpened, i.dateClosed, i.title, i.description,
+                p.name AS productName,
+                c.firstName AS customerFirst, c.lastName AS customerLast
+        FROM incidents i
+        JOIN products p ON i.productCode = p.productCode
+        JOIN customers c ON i.customerID = c.customerID
+        WHERE i.incidentID = :incident_id
+          AND i.techID = :tech_id
+        LIMIT 1
+      ");
+      $statement->execute([':incident_id' => $incident_id, ':tech_id' => $tech_id]);
+      $incident = $statement->fetch(PDO::FETCH_ASSOC);
+
+      if (!$incident) {
+        $error_message = "Incident not found or not assigned to you.";
+        include __DIR__ . '/../views/admin/error.php';
+        exit;
+      }
+
+    } catch (PDOException $e) {
+        $error_message = $e->getMessage();
+        include __DIR__ . '/../views/admin/error.php';
+        exit;
+    } // close catch
+
+    include __DIR__ . '/../views/technicians/edit_incident.php';
+    exit;
+    break;
+
+  case 'save_incident':
+    // saves the updated/closed incident from technician to the database
+    if (empty($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') !== 'technician') {
+      header("Location: " . BASE_URL . "auth/login.php");
+      exit;
+    }
+
+    $incident_id = filter_input(INPUT_POST, 'incident_id', FILTER_VALIDATE_INT);
+    $description = trim((string)filter_input(INPUT_POST, 'description'));
+    $dateClosedRaw = trim((string)filter_input(INPUT_POST, 'dateClosed'));
+
+    if (!$incident_id) {
+      $error_message = "Missing or invalid incident ID.";
+      include __DIR__ . '/../views/admin/error.php';
+      exit;
+    }
+
+    // start with an empty/Null dateClosed
+    $dateClosed = ($dateClosedRaw === '') ? null : $dateClosedRaw;
+
+    $tech_id = (int)$_SESSION['user']['id'];
+
+    try {
+      $statement = $pdo->prepare ("
+        UPDATE incidents
+        SET description = :description, dateClosed = :dateClosed
+        WHERE incidentID = :incident_id
+          AND techID = :tech_id
+      ");
+
+      // bind the values
+      $statement->bindValue(':description', $description);
+      $statement->bindValue(':incident_id', $incident_id, PDO::PARAM_INT);
+      $statement->bindValue(':tech_id', $tech_id, PDO::PARAM_INT);
+
+    // fix the unknown error over NULL dateClosed
+    if ($dateClosed === null) {
+      $statement->bindValue(':dateClosed', null, PDO::PARAM_NULL);
+    } else {
+      $statement->bindValue(':dateClosed', $dateClosed);
+    }
+
+      $statement->execute();
+
+    } catch (PDOException $e) {
+        $error_message = $e->getMessage();
+        include __DIR__ . '/../views/admin/error.php';
+        exit;
+    } // close catch
+
+    header("Location: " . BASE_URL . "controllers/incident_controller.php?action=tech_dashboard");
+    exit;
+    break;
+
+
+
 } // close switch
 
 
