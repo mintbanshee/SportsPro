@@ -1,45 +1,64 @@
 # 🏀 SportsPro Technical Support System
+A role-based PHP/MySQL helpdesk system 
 
-**Developer:** MintBanshee
-**Course:** PHP and MySQL Development Project 
-**Status:**
-  - **Phase 4:** Assignment 5 (Incident Report pages and Final Touches) 
+- **Developer:** MintBanshee
+- **Course:** PHP and MySQL Development Project
+- **Status:** Complete
+
+## 🔄 System Workflow
+Customer registers product has issue and calls tech support → Admin creates incident report and assigns technician → Technician resolves and closes incident
 
 ## ✨ AI Use
-**Documentation:** Co-authored this README with Artemis (Gemini) to organize project goals and instructor notes.
 
-**Syntax & Logic Mentorship:** Used for troubleshooting pathing issues, verifying SQL syntax, and mapping out logical flows (pseudo-code) to ensure professional structure and UI/UX consistency while maintaining a "Do not give me coding" rule.
+**Documentation:** Co-authored this README with Artemis (Gemini) and Luna (ChatGPT) to help organize project goals and instructor notes.
 
-**Hey Artemis! I'd like to make it so THIS happens for user flow but I don't know how, can you give me directions without giving me code please?** 
+**Syntax & Logic Mentorship:**
+- conceptual guidance and workflow planning (including minor UX improvements beyond assignment requirements)
+- debugging assistance for pathing and logic issues
+- demonstration-style examples for concepts not covered in class (I learn best through demonstrations)
 
 ## 🌿 Project Goals
 This is a PHP/MySQL application for tracking technical support incidents. 
 
 ## 📝 Dev-Student Notes
-- integrated search customers feature on to customers manager to reduce redunancy
-- added back button to the additional search page accessed from the view/update customer page for ease of use
-- manually seeded Japan the database to allow Japan (JP) as a country and added Japan to the dropdown menu
-- added Register Another Product and Cancel button for better user experience
-- added success and error alerts for better user experience including adding a check for if product is already registered
-- added admin ability to edit user information and role
-- started incident pages
-- updated edit customer country drop-down menu
-- moved customer management and technician management in to controller files and cleaned up the admin files
-- added success popup alerts for user clarity
-- moved product management in to controller file and cleaned up product admin files
+
+### 🧱 Architecture
 - separated concerns, creating MVC scaffolding
+- moved customer management and technician management in to controller files and cleaned up the admin files
+- moved product management in to controller file and cleaned up product admin files
 - created technician_db and class models
 - created product_db model
-- added Database::getDB(); to retrieve pdo database connection 
-- added add customer feature for admin on manage customers page
-- upgraded the edit customer form to double as add customer form depending on which way you enter the page (using the or feature)
+- added Database::getDB(); to retrieve pdo database connection
+- started to update data access functions to return arrays instead of pdo statement object
+
+### 🔐 Authentication & Sessions
+- created login for customers and technicians
+- added some session handling for success messages
+- implemented session regeneration for added security
+
+### 🗄 Database & Models
 - added try/catch database error handling
 - added TypeError handling
 - started converting SQL queries to prepare statements
-- started to update data access functions to return arrays instead of pdo statement object
 - upgraded input validation
-- added some session handling for success messages
+- manually seeded the database to allow Japan (JP) as a country and added Japan to the dropdown menu
+
+### 🎨 UX Improvements
+- integrated search customers feature on to customers manager to reduce redundancy
+- added Register Another Product and Cancel button
+- added success and error alerts for better user experience including adding a check for if product is already registered
+- added success popup alerts for user clarity
+- updated edit customer country drop-down menu
+
+### 🛠 Features
+- added admin ability to edit user information and role
+- started incident pages
+- added add customer feature for admin on manage customers page
+- upgraded the edit customer form to double as add customer form depending on which way you enter the page
 - added ability to assign incident to technician for admins
+- created technician dashboard
+- technicians can close their incidents and add notes to description
+- added a page for admin to view assigned and unassigned incidents
 
 ### Previous Focus (Assignment 2 & 3)
 - Initialize the tech_support database. 
@@ -50,129 +69,57 @@ This is a PHP/MySQL application for tracking technical support incidents.
 - ensure customers manager is fully functional
 
 ### What is to Come
-- complete incident report pages
-- and more
+- completed - 
 
 ## 📷 Screenshots
-Visual evidence of completed work as I progress through the assignment
+Visuals of the assignment pages
 
-<img width="1878" height="1099" alt="SportsPro1" src="https://github.com/user-attachments/assets/772ce741-ee3c-4f99-8bcf-87413d1a9bd0" />
+ ### Login Screen and Admin Landing Page After Login Success 
+<br>
+<img width="1157" height="1001" alt="SignUp" src="https://github.com/user-attachments/assets/0de4479d-239a-452e-9850-4729563df16f" />
+<img width="739" height="468" alt="Login" src="https://github.com/user-attachments/assets/cd4a1352-47fb-432a-a0e7-428c128d8f09" />
+<img width="1203" height="876" alt="AdminDashboard" src="https://github.com/user-attachments/assets/0930ac3e-beaa-47b2-a2f0-dccb95cf8730" />
 
-<img width="1720" height="943" alt="ManageProducts" src="https://github.com/user-attachments/assets/ded08b27-04bb-44c4-9136-07b3a435812a" />
+### Admin Incident Functions 
+<br>
+<img width="1368" height="912" alt="CreatingReport" src="https://github.com/user-attachments/assets/76696399-1e28-4e4a-9a0d-2008e0a46150" />
+<img width="1368" height="618" alt="IncidentSuccess" src="https://github.com/user-attachments/assets/74ed5315-5ad2-450f-8fa6-00fbade69e5e" />
+<img width="1200" height="964" alt="DisplayIncidents" src="https://github.com/user-attachments/assets/9c485ef5-3d12-4524-9020-f15d23fda262" />
+<img width="1370" height="707" alt="SelectIncident" src="https://github.com/user-attachments/assets/2b40118b-4d08-4308-9468-d690c1180bb5" />
+<img width="1372" height="690" alt="SelectTechnician" src="https://github.com/user-attachments/assets/ea838f73-2b83-4952-b9ec-094c5fe6cb08" />
+<img width="1360" height="606" alt="AssignIncident" src="https://github.com/user-attachments/assets/15e658e3-98f9-45e1-b70d-8c46f3c0fa87" />
 
-<img width="1281" height="782" alt="AddProduct" src="https://github.com/user-attachments/assets/6dbf8e6c-e395-4dd4-9e31-30e6f5b2b9d0" />
+ ### Admin Edit Customer Function
+<br>
+<img width="1399" height="803" alt="UpdatedCxList" src="https://github.com/user-attachments/assets/cc7106c2-023c-4b4f-9b7b-47a8097bef3e" />
+<img width="1365" height="842" alt="UpdatedCountryDropdown" src="https://github.com/user-attachments/assets/e0871a67-dfe4-43c2-9518-6fea335e351e" />
 
-<img width="1286" height="703" alt="ProductAddDelete" src="https://github.com/user-attachments/assets/d248b35c-1205-4849-adfe-f1751e9cabe0" />
+### Manage Products
+<br>
+<img width="1363" height="771" alt="UpdatedManageProduct" src="https://github.com/user-attachments/assets/653db425-defc-45bc-a246-02871cc07c41" />
+<img width="1370" height="864" alt="NewAddProduct" src="https://github.com/user-attachments/assets/13916360-900c-48c6-bdb9-8c82b86c515b" />
+<img width="1367" height="891" alt="DeleteProductConfirm" src="https://github.com/user-attachments/assets/2bd9db29-6094-4b72-82e2-6daa67160628" />
 
-<img width="1286" height="685" alt="ProductDeleted" src="https://github.com/user-attachments/assets/2e768287-2ec0-473d-86c4-92fba0a5e0ab" />
+### Manage Technicians
+<br>
+<img width="1366" height="606" alt="UpdatedManageTech" src="https://github.com/user-attachments/assets/f72d5694-7772-4d72-94cf-0fc187bb007e" />
+<img width="1365" height="810" alt="UpdatedAddTech" src="https://github.com/user-attachments/assets/72435cb5-21ea-4570-9784-49286362fcb1" />
 
-<img width="1285" height="874" alt="AddTechnician" src="https://github.com/user-attachments/assets/8da8ee58-52f8-4dd5-a49b-b2377c6cc590" />
+### Technician Function
+<br>
+<img width="1206" height="894" alt="TechDashboard" src="https://github.com/user-attachments/assets/abdad6e7-965d-4a9f-a036-b644aa8c7473" />
+<img width="1205" height="880" alt="TechUpdate" src="https://github.com/user-attachments/assets/b86543a6-f546-4162-a984-a19003a37bed" />
+<img width="1205" height="904" alt="ClosedIncident" src="https://github.com/user-attachments/assets/b6b12f9a-81ea-4853-8594-5cf515d51630" />
 
-<img width="1290" height="698" alt="TechnicianAddedDelete" src="https://github.com/user-attachments/assets/aaf6584a-052a-44b4-a499-57c6a99c602c" />
+### Customer Register Product
+<br>
+<img width="1155" height="623" alt="RegisterProduct" src="https://github.com/user-attachments/assets/6bced3f3-ff7f-46e1-92c2-20af7e89a48b" />
+<img width="1155" height="653" alt="RegisterSuccess" src="https://github.com/user-attachments/assets/0931f058-2d2f-47a3-89d1-8a2ecbebdbab" />
 
-<img width="1289" height="692" alt="DeletedTechnician" src="https://github.com/user-attachments/assets/c7be139e-a8e6-4db2-b456-4b9f2c85918c" />
-
-<img width="1730" height="929" alt="CustomersTable" src="https://github.com/user-attachments/assets/487acb27-384b-4702-b90c-778c9b2932e5" />
-
-<img width="1717" height="943" alt="ManageCustomers" src="https://github.com/user-attachments/assets/dccc1d75-69a5-45a5-8313-ece1367632b6" />
-
-<img width="1724" height="913" alt="UpdateCustomer" src="https://github.com/user-attachments/assets/d7ee69d0-e385-46c7-aecc-9a9d6633c405" />
-
-<img width="1367" height="869" alt="EditCustomerCountry" src="https://github.com/user-attachments/assets/600748db-2a84-4a17-bf81-59e8255892eb" />
-
-<img width="1720" height="934" alt="UpdateSuccessful" src="https://github.com/user-attachments/assets/8bb1192a-100e-4d0b-b4bb-2512504a9780" />
-
-<img width="1713" height="844" alt="UpdatedCustomer" src="https://github.com/user-attachments/assets/8a281887-007d-4c25-babb-d8de15b315c2" />
-
-<img width="1157" height="1001" alt="SignUp" src="https://github.com/user-attachments/assets/cf26fb67-6c27-4534-8a90-97df5e8854ba" />
-
-<img width="739" height="468" alt="Login" src="https://github.com/user-attachments/assets/3130100d-8330-4c07-88a5-abc7927d336a" />
-
-<img width="1162" height="787" alt="MyAccountPage" src="https://github.com/user-attachments/assets/193cac83-e912-4a97-99b8-01d2c1c7d664" />
-
-<img width="1164" height="811" alt="AdminDashboard" src="https://github.com/user-attachments/assets/58202c36-c32c-4dfd-8680-4a27371d8d60" />
-
-<img width="1160" height="805" alt="UserEditSuccess" src="https://github.com/user-attachments/assets/ff16c6f5-9911-45f3-b7ad-50de9a17874f" />
-
-<img width="1160" height="776" alt="UserEdited" src="https://github.com/user-attachments/assets/d6af79c6-dbf6-445f-8a3b-f29769939f03" />
-
-<img width="1155" height="623" alt="RegisterProduct" src="https://github.com/user-attachments/assets/b777829f-fb92-4292-aded-02bd805457cb" />
-
-<img width="1155" height="653" alt="RegisterSuccess" src="https://github.com/user-attachments/assets/ad95388d-a589-4164-a79e-8647e624a5eb" />
-
-<img width="1153" height="645" alt="RegistrationExists" src="https://github.com/user-attachments/assets/9dec2b4f-f74c-4cc9-9e01-cc9a257f11ca" />
-
-<img width="1498" height="961" alt="CreateReport" src="https://github.com/user-attachments/assets/546debdc-82ee-4d59-ad69-ae01e2ad428e" />
-
-<img width="1625" height="901" alt="NoProductRegistered" src="https://github.com/user-attachments/assets/fd645150-5b08-4489-ad22-ffed9020b850" />
-
-<img width="1629" height="934" alt="OnlyRegisteredProducts" src="https://github.com/user-attachments/assets/5302ae9d-4641-4461-bba1-804150bc8df9" />
-
-<img width="1368" height="912" alt="CreatingReport" src="https://github.com/user-attachments/assets/87a0ae08-0da9-4075-ab03-ffbbee74e264" />
-
-<img width="1368" height="618" alt="IncidentSuccess" src="https://github.com/user-attachments/assets/8677bf99-2a8e-4d1b-ade7-037f7594f9dd" />
-
-<img width="1140" height="374" alt="IncidentInDatabase" src="https://github.com/user-attachments/assets/064a2fd0-a981-4c9c-98f9-e5b5bd9304a6" />
-
-** Page Updates For Assignment 5 **
-
-Move php logic in to controller files.
-
-<img width="1372" height="634" alt="UpdatedCustomerSearch" src="https://github.com/user-attachments/assets/fdca812c-dc8c-4e19-8df9-1351611f68a9" />
-
-<img width="1366" height="629" alt="UpdatedCustomerSearchResult" src="https://github.com/user-attachments/assets/6f62c479-af41-475d-a1e1-b8de97c2d02d" />
-
-<img width="1365" height="842" alt="UpdatedCountryDropdown" src="https://github.com/user-attachments/assets/fbb7ae91-59af-435e-865c-ba49497e18a5" />
-
-<img width="1364" height="834" alt="UpdatedCustomerPopup" src="https://github.com/user-attachments/assets/d9800077-c67e-446b-a935-271be00dec94" />
-
-<img width="1362" height="1037" alt="CustomerEditSuccess" src="https://github.com/user-attachments/assets/1b69896a-1d67-4f55-a047-3c82b48456dd" />
-
-<img width="1365" height="679" alt="EditedCustomerCountry" src="https://github.com/user-attachments/assets/3693837f-f1d1-47fa-9671-0ae9ec721c1d" />
-
-<img width="1366" height="606" alt="UpdatedManageTech" src="https://github.com/user-attachments/assets/b2cdcdbd-1626-4ff9-aa38-56b73a3327ac" />
-
-<img width="1365" height="810" alt="UpdatedAddTech" src="https://github.com/user-attachments/assets/c54271f9-d478-4c57-9215-227839f1f976" />
-
-<img width="1366" height="961" alt="TechAddSuccess" src="https://github.com/user-attachments/assets/45c21a39-1244-442d-a037-99f0912c8422" />
-
-<img width="1363" height="769" alt="DeleteTechConfirm" src="https://github.com/user-attachments/assets/e700fafe-c8fd-42d5-9450-1ab1605e0de2" />
-
-<img width="1363" height="970" alt="DeletedSuccess" src="https://github.com/user-attachments/assets/b4743f86-c6ba-41f1-90d0-eca2c28c111b" />
-
-<img width="1363" height="657" alt="AfterDelete" src="https://github.com/user-attachments/assets/9940efc6-b14a-4744-8862-89917a62518a" />
-
-<img width="1363" height="771" alt="UpdatedManageProduct" src="https://github.com/user-attachments/assets/1590d14b-7363-4563-bac3-08a2a3020812" />
-
-<img width="1370" height="864" alt="NewAddProduct" src="https://github.com/user-attachments/assets/66b1cf05-4f50-47ad-b31f-93396eb052fc" />
-
-<img width="1367" height="871" alt="ProductAdded" src="https://github.com/user-attachments/assets/9277966b-c3d7-4df8-8822-a07415840fe6" />
-
-<img width="1367" height="891" alt="DeleteProductConfirm" src="https://github.com/user-attachments/assets/55c2c16f-d37b-4648-91e5-de73434f7f07" />
-
-<img width="1361" height="962" alt="ProductDeleteSuccess" src="https://github.com/user-attachments/assets/fa1df2df-8e2d-43fa-9020-4a13f89e5782" />
-
-<img width="1366" height="825" alt="ProductAfterDelete" src="https://github.com/user-attachments/assets/0e45a932-dba3-4eee-9386-a659be7714be" />
-
-<img width="1400" height="697" alt="NewManageCX" src="https://github.com/user-attachments/assets/66c9b91e-72f2-4729-80e4-1cc2cb01cdf9" />
-
-<img width="1399" height="764" alt="ConfirmAddCustomer" src="https://github.com/user-attachments/assets/06b6d9d0-6140-4a5a-930a-88cd62e7c17c" />
-
-<img width="1395" height="933" alt="CxAddSuccess" src="https://github.com/user-attachments/assets/cd5b2c60-b1ed-454e-9f4a-5f24fbcca299" />
-
-<img width="1399" height="803" alt="UpdatedCxList" src="https://github.com/user-attachments/assets/be137974-131d-470d-bca7-2b05d311bb37" />
-
-<img width="1370" height="707" alt="SelectIncident" src="https://github.com/user-attachments/assets/6236a584-01de-4185-b61f-34071b3f3a7f" />
-
-<img width="1372" height="690" alt="SelectTechnician" src="https://github.com/user-attachments/assets/b922ce30-be47-4ecb-a732-6006322b5d6c" />
-
-<img width="1360" height="606" alt="AssignIncident" src="https://github.com/user-attachments/assets/bef68af3-c2c3-4f42-ae2d-48adc901c8a2" />
-
-<img width="1360" height="836" alt="AssignSuccess" src="https://github.com/user-attachments/assets/414e5e9a-3751-4f69-ab9a-79b22574ee75" />
-
-
-
-
+### Flash Alerts
+<br>
+<img width="1363" height="769" alt="DeleteTechConfirm" src="https://github.com/user-attachments/assets/85f43103-8b55-45e9-80d2-8e481a9cae5c" />
+<img width="1363" height="970" alt="DeletedSuccess" src="https://github.com/user-attachments/assets/5f6ae55d-d8f2-4a1e-bff5-9b2d2ca948cf" />
 
 
 
