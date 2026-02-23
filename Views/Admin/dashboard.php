@@ -46,11 +46,11 @@ require_once __DIR__ . '/../header.php';
             Assign Incident
         </a>
 
-        <a href="<?= BASE_URL ?>controllers/incident_controller.php?action=display_incidents"
+        <a href="<?= BASE_URL ?>/controllers/incident_controller.php?action=display_incidents"
             class="list-group-item list-group-item-action">
             Display Incidents
         </a>
-
+    
     </div>
 </div>
 
@@ -60,7 +60,6 @@ require_once __DIR__ . '/../header.php';
 <div class="d-flex gap-2">
   <a href="<?= BASE_URL ?>/auth/logout.php" class="btn btn-danger">Logout</a>
   <a href="../../index.php" class="btn btn-secondary">Back to Home</a> 
-  <a href="<?= BASE_URL ?>/views/customers/index.php" class="btn btn-primary">My Account</a> 
 </div>
 
 <?php require __DIR__ . '/../footer.php'; ?>

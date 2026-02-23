@@ -35,6 +35,23 @@ $pdo = Database::getDB();
   </tbody>
 </table>
 
+<div class="card shadow mb-5">
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Menu</h4>
+    </div>
+    <div class="card-body">
+        <div class="list-group list-group-flush">
+        <a href="<?= $base_url ?>/views/customers/register_product.php" class="list-group-item list-group-item-action">
+            Register Product
+        </a>        
+        
+            </a>
+        </div>
+    </div>
+</div>
+
+<?php include 'views/footer.php'; ?>
+
 <a href="<?= BASE_URL ?>/auth/logout.php" class="btn btn-danger">Logout</a>
 <a href="../../index.php" class="btn btn-secondary">Back to Home</a> 
 

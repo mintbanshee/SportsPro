@@ -45,7 +45,8 @@ $base_url = 'http://localhost/PHPAssignments/SportsPro';
             Assign Incident
         </a>
 
-        <a href="incidents/index.php" class="list-group-item list-group-item-action">
+        <a href="<?= $base_url ?>/controllers/incident_controller.php?action=display_incidents" 
+            class="list-group-item list-group-item-action">
             Display Incidents
         </a>
 
@@ -61,7 +62,7 @@ $base_url = 'http://localhost/PHPAssignments/SportsPro';
     </div>
     <div class="card-body">
         <div class="list-group list-group-flush">
-            <a href="technicians/update_incident.php"
+            <a href="<?= $base_url ?>/controllers/incident_controller.php?action=tech_dashboard"
                class="list-group-item list-group-item-action">
                 Update Incident
             </a>
