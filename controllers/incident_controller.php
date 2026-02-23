@@ -205,6 +205,51 @@ switch ($action) {
     exit;
     break;
 
+  case 'display_incidents':
+    try {
+      // have both assigned and unassigned in 1 page with anchor links that scroll
+      // unassigned table:
+      $statement = $pdo->prepare ("
+        SELECT  i.incidentID, i.dateOpened, i.title, i.description,
+                c.firstName, c.lastName,
+                p.name AS productName
+        FROM incidents i
+        JOIN customers c ON i.customerID = c.customerID
+        JOIN products p ON i.productCode = p.productCode
+        WHERE i.techID is NULL
+        ORDER BY i.dateOpened DESC
+      ");
+
+      $statement->execute();
+      $unassigned = $statement->fetchALL(PDO::FETCH_ASSOC);
+
+      // assigned table:
+      $statement = $pdo->prepare ("
+        SELECT  i.incidentID, i.dateOpened, i.dateClosed, i.title, i.description,
+                c.firstName AS customerFirst, c.lastName AS customerLast,
+                p.name AS productName,
+                t.firstName AS techFirst, t.lastName AS techLast
+        FROM incidents i
+        JOIN customers c ON i.customerID = c.customerID
+        JOIN products p ON i.productCode = p.productCode
+        JOIN technicians t ON i.techID = t.techID
+        WHERE i.techID IS NOT NULL
+        ORDER BY i.dateOpened DESC
+      ");
+
+      $statement->execute();
+      $assigned = $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+    } catch (PDOException $e) {
+        $error_message = $e->getMessage();
+        include __DIR__ . '/../views/admin/error.php';
+      exit;
+    }// close catch
+
+    include __DIR__ . '/../views/admin/display_incidents.php';
+    exit;
+    break;
+
 } // close switch
 
 

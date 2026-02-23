@@ -46,7 +46,7 @@ require_once __DIR__ . '/../header.php';
             Assign Incident
         </a>
 
-        <a href="<?= BASE_URL ?>controllers/incident_controller.php?action=display_incidents" 
+        <a href="<?= BASE_URL ?>controllers/incident_controller.php?action=display_incidents"
             class="list-group-item list-group-item-action">
             Display Incidents
         </a>
