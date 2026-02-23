@@ -40,9 +40,8 @@ $base_url = 'http://localhost/PHPAssignments/SportsPro';
             Create Incident
         </a>
 
-
-
-        <a href="incidents/assign_incident.php" class="list-group-item list-group-item-action">
+        <a href="<?= $base_url ?>/controllers/incident_controller.php?action=select_incident" 
+            class="list-group-item list-group-item-action">
             Assign Incident
         </a>
 
